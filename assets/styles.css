@@ -606,9 +606,19 @@ h6 {
   transition: color 0.3s ease, border-color 0.3s ease;
 }
 
-.cta-btn:hover,
+/* Os estados de :hover do botão ficam presos em @media (hover: hover): em
+   tela de toque o navegador "gruda" o hover no último elemento tocado, e o
+   botão voltava do WhatsApp com o preenchimento escuro e a cópia do texto
+   por cima, até a pessoa tocar em outro lugar. O :focus-visible continua
+   valendo em qualquer dispositivo (teclado). */
 .cta-btn:focus-visible {
   color: var(--cta-hover-fg);
+}
+
+@media (hover: hover) {
+  .cta-btn:hover {
+    color: var(--cta-hover-fg);
+  }
 }
 
 /* O ponto em repouso — vira o preenchimento que toma o botão inteiro no
@@ -637,13 +647,22 @@ h6 {
     transform 0.3s ease;
 }
 
-.cta-btn:hover::before,
 .cta-btn:focus-visible::before {
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   transform: scale(1.8);
+}
+
+@media (hover: hover) {
+  .cta-btn:hover::before {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transform: scale(1.8);
+  }
 }
 
 /* O translateX(4px) em repouso vem da referência: é o respiro entre o ponto
@@ -666,10 +685,16 @@ h6 {
   z-index: 0;
 }
 
-.cta-btn--icon:hover .cta-btn__text,
 .cta-btn--icon:focus-visible .cta-btn__text {
   transform: translateX(3rem);
   opacity: 0;
+}
+
+@media (hover: hover) {
+  .cta-btn--icon:hover .cta-btn__text {
+    transform: translateX(3rem);
+    opacity: 0;
+  }
 }
 
 /* Camada com a cópia do texto + a seta: escondida à direita em repouso,
@@ -702,10 +727,16 @@ h6 {
   stroke-linejoin: round;
 }
 
-.cta-btn--icon:hover .cta-btn__hover,
 .cta-btn--icon:focus-visible .cta-btn__hover {
   transform: translateX(-0.25rem);
   opacity: 1;
+}
+
+@media (hover: hover) {
+  .cta-btn--icon:hover .cta-btn__hover {
+    transform: translateX(-0.25rem);
+    opacity: 1;
+  }
 }
 
 /* Variante para fundos escuros. A borda usa 45% de opacidade (e não 40%) para
@@ -719,9 +750,14 @@ h6 {
   color: var(--color-paper);
 }
 
-.cta-btn--outline:hover,
 .cta-btn--outline:focus-visible {
   border-color: var(--color-gold-500);
+}
+
+@media (hover: hover) {
+  .cta-btn--outline:hover {
+    border-color: var(--color-gold-500);
+  }
 }
 
 /* Variante para fundos claros. Borda em 60%: com os 40% da referência daria
@@ -735,9 +771,14 @@ h6 {
   color: var(--color-graphite-950);
 }
 
-.cta-btn--dark:hover,
 .cta-btn--dark:focus-visible {
   border-color: var(--color-olive-900);
+}
+
+@media (hover: hover) {
+  .cta-btn--dark:hover {
+    border-color: var(--color-olive-900);
+  }
 }
 
 /* Variante verde do WhatsApp — mesma mecânica das outras (preenchimento e
@@ -1049,13 +1090,23 @@ h6 {
   transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
 }
 
-.solucoes-cards:hover .solucoes-card {
-  transform: scale(0.97);
-  opacity: 0.65;
-  filter: blur(2px);
+/* Só com mouse: no toque o :hover gruda no cartão tocado e os outros três
+   ficavam esmaecidos e borrados até a pessoa tocar fora. */
+@media (hover: hover) {
+  .solucoes-cards:hover .solucoes-card {
+    transform: scale(0.97);
+    opacity: 0.65;
+    filter: blur(2px);
+  }
+
+  .solucoes-cards .solucoes-card:hover {
+    transform: scale(1.04);
+    opacity: 1;
+    filter: none;
+    z-index: 2;
+  }
 }
 
-.solucoes-cards .solucoes-card:hover,
 .solucoes-cards .solucoes-card:focus-visible {
   transform: scale(1.04);
   opacity: 1;
@@ -1125,13 +1176,21 @@ h6 {
   transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
 }
 
-.atuacao-cards:hover .atuacao-card {
-  transform: scale(0.97);
-  opacity: 0.65;
-  filter: blur(2px);
+@media (hover: hover) {
+  .atuacao-cards:hover .atuacao-card {
+    transform: scale(0.97);
+    opacity: 0.65;
+    filter: blur(2px);
+  }
+
+  .atuacao-cards .atuacao-card:hover {
+    transform: scale(1.02);
+    opacity: 1;
+    filter: none;
+    z-index: 2;
+  }
 }
 
-.atuacao-cards .atuacao-card:hover,
 .atuacao-cards .atuacao-card:focus-within {
   transform: scale(1.02);
   opacity: 1;
@@ -2036,13 +2095,19 @@ h6 {
 .cta-btn::before {
   background: #ffffff;
 }
-.cta-btn:hover::before,
 .cta-btn:focus-visible::before {
   background: var(--cta-fill);
 }
-.cta-btn--outline:hover,
 .cta-btn--outline:focus-visible {
   border-color: var(--color-acao-escuro);
+}
+@media (hover: hover) {
+  .cta-btn:hover::before {
+    background: var(--cta-fill);
+  }
+  .cta-btn--outline:hover {
+    border-color: var(--color-acao-escuro);
+  }
 }
 
 /* Botão de WhatsApp (CTA do hero): verde oficial #25D366, o mesmo do
@@ -2064,14 +2129,21 @@ h6 {
 /* A cor do hover precisa ser repetida: a regra acima tem a mesma
    especificidade do ".cta-btn:hover" da base e vem depois, então venceria
    também no hover e deixaria o texto escuro sobre o verde-escuro. */
-.cta-btn.cta-btn--whatsapp:hover,
 .cta-btn.cta-btn--whatsapp:focus-visible {
   border-color: #075e54;
   color: var(--cta-hover-fg);
 }
-.cta-btn.cta-btn--whatsapp:hover::before,
 .cta-btn.cta-btn--whatsapp:focus-visible::before {
   background: var(--cta-fill);
+}
+@media (hover: hover) {
+  .cta-btn.cta-btn--whatsapp:hover {
+    border-color: #075e54;
+    color: var(--cta-hover-fg);
+  }
+  .cta-btn.cta-btn--whatsapp:hover::before {
+    background: var(--cta-fill);
+  }
 }
 
 /* Botão secundário (cartões de serviço, "Voltar"): contorno petróleo. */
@@ -2516,7 +2588,7 @@ h6 {
 
    Desktop (>= 1024px): a altura dela é 90% do palco, com teto de 50rem;
    o texto ganha uma largura máxima que nunca alcança o recorte:
-   0,799 é a proporção do arquivo (1064 x 1332, recorte da cabeça ao
+   0,8 é a proporção do arquivo (1080 x 1350, recorte da cabeça ao
    quadril).
    Celular/tablet: também de pé na base, mais à direita e maior, com o
    texto à esquerda passando só por cima das mãos e do blazer. (Uma máscara
@@ -2667,7 +2739,7 @@ h6 {
   }
 
   /* Faixa livre à esquerda do recorte: palco 100% menos o "right" dele e
-     a largura (altura x 0,799, proporção de gilmara-hero.webp 1064 x 1332),
+     a largura (altura x 0,8, proporção de gilmara-hero.webp 1080 x 1350),
      menos o padding esquerdo e um respiro. */
   .hero-texto {
     max-width: min(48rem, calc(100vw - max(1.5rem, (100vw - 80rem) / 2 + 1rem) - min(90svh, 50rem) * 0.799 - 3.5rem - 2rem));
@@ -2996,9 +3068,13 @@ h6 {
   border-color: #25d366;
 }
 
-.secao-contato .glass-card--hero .cta-btn--whatsapp:hover,
 .secao-contato .glass-card--hero .cta-btn--whatsapp:focus-visible {
   border-color: #075e54;
+}
+@media (hover: hover) {
+  .secao-contato .glass-card--hero .cta-btn--whatsapp:hover {
+    border-color: #075e54;
+  }
 }
 
 /* Salto do botão do formulário quando a pessoa clica em "Quero agendar
@@ -3253,4 +3329,139 @@ h6 {
 
 .js .faixa-paralaxe__resto.revelar--subir {
   transition-delay: 180ms;
+}
+
+/* =========================================================================
+   CELULAR: AJUSTES DE TOQUE, ALVOS E LAYOUT
+   Regras pensadas pra tela de toque e larguras até 639px. Vêm no fim do
+   arquivo de propósito, pra vencer as anteriores de mesma especificidade.
+   ========================================================================= */
+
+/* Sem o flash azul/cinza do sistema ao tocar em link ou botão (o site já
+   tem os próprios estados de foco e de pressionado). touch-action:
+   manipulation tira o atraso de duplo toque em navegadores antigos. */
+a,
+button,
+summary,
+[tabindex] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Botão flutuante do WhatsApp fora da barra de gestos do iPhone/Android
+   (safe-area), e não grudado no canto em telas com recorte. */
+.whatsapp-fab {
+  bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  right: calc(1.5rem + env(safe-area-inset-right, 0px));
+}
+
+/* Botão do menu em 44px: é o mínimo confortável de alvo de toque; os 42px
+   de antes ficavam no limite. */
+.header-toggle {
+  width: 44px;
+  height: 44px;
+}
+
+/* Painel do menu nunca mais alto que a tela (celular deitado): rola por
+   dentro em vez de esconder o "Agendar uma visita" embaixo. */
+.header-mnav {
+  max-height: calc(100dvh - 86px - env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* FAQ: a área de toque é a pergunta inteira, de borda a borda da linha.
+   Antes o padding vertical ficava no <details> e só os 26px de texto do
+   <summary> respondiam ao toque; agora o padding mora no summary (toque de
+   ~66px de altura) e a resposta compensa embaixo. */
+.faq-item {
+  padding-block: 0;
+}
+
+.faq-item__question {
+  padding-block: 1.25rem;
+}
+
+.faq-item__answer {
+  margin-top: -0.5rem;
+  padding-bottom: 1.25rem;
+}
+
+@media (max-width: 639px) {
+  /* Rótulos longos ("Falar com a corretora Gilmara Tusthler") quebram em
+     duas linhas em qualquer celular, não só até 420px: num iPhone de 430px
+     o botão passava 30px da borda do cartão da corretora. A fonte continua
+     em 1rem; só abaixo de 420px ela cai pra 0.9375rem (regra da seção 6). */
+  .cta-btn {
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.3;
+  }
+
+  /* Hero em telas baixas (iPhone SE, Android 360x640): o recorte da
+     Gilmara tinha 16rem de altura mínima e estourava o palco em ~15px,
+     cortando o pé do nome/CRECI. 14rem cabem nos 640px com o texto acima. */
+  .hero-foto .hero-gilmara {
+    min-height: 14rem;
+  }
+
+  /* O desfoque de 2px sobre o vídeo é um filtro aplicado a cada quadro, e
+     em celular isso custa GPU e bateria o tempo todo. O vídeo vertical
+     (720px) já chega mais suave que o desktop e passa por baixo do véu
+     petróleo, então o blur não faz falta aqui. */
+  .hero-video-fundo {
+    filter: none;
+    transform: none;
+  }
+
+  /* Setas do banner em 40x44 (eram 32x40) e bolinhas com 32px de toque
+     (eram 24). */
+  .banner-res__seta {
+    width: 2.5rem;
+    height: 2.75rem;
+  }
+
+  .banner-res__pontos {
+    gap: 0;
+  }
+
+  .banner-res__ponto {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  /* Cartões de infraestrutura em carrossel horizontal com scroll-snap, em
+     vez de quatro cartões de 20rem empilhados (1.300px de rolagem só nessa
+     fileira). Sangra até a borda da tela (margem negativa igual ao px-6 da
+     seção) e o próximo cartão espia na direita, que é a dica de que dá pra
+     arrastar. Rolagem nativa, sem JS. */
+  .solucoes-cards {
+    display: flex;
+    gap: 0.75rem;
+    margin-inline: -1.5rem;
+    padding-inline: 1.5rem;
+    padding-bottom: 0.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1.5rem;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .solucoes-cards::-webkit-scrollbar {
+    display: none;
+  }
+
+  .solucoes-card {
+    flex: 0 0 min(78%, 18rem);
+    min-height: 18rem;
+    scroll-snap-align: start;
+  }
+
+  /* A entrada "alinhando" (cartões vindo de ±110%) alargava a pista de
+     rolagem durante a animação; no carrossel eles só aparecem. */
+  .js .solucoes-cards.revelar:not(.visivel) .solucoes-card {
+    translate: none;
+  }
 }

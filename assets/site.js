@@ -13,7 +13,13 @@
         var suavizacao = function (t) {
           return Math.min(1, 1.001 - Math.pow(2, -10 * t));
         };
-        if (!semMovimento && typeof Lenis !== "undefined") {
+        /* Em tela de toque o Lenis não suaviza nada (syncTouch fica
+           desligado e a rolagem é a nativa do celular), mas o laço de
+           requestAnimationFrame abaixo continuaria rodando a cada quadro à
+           toa, gastando CPU e bateria. Sem ele, irPara() cai no
+           window.scrollTo suave do navegador, que no celular é o bastante. */
+        var telaDeToque = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+        if (!semMovimento && !telaDeToque && typeof Lenis !== "undefined") {
           lenis = new Lenis({
             autoRaf: false,
             duration: 1.4,
@@ -75,6 +81,22 @@
               }, 2000);
             }
           }, visivel ? 0 : 1000);
+        }
+
+        /* ---- Vídeo do hero com economia de dados ---------------------------
+           Quem liga "economia de dados" no celular (Chrome/Android expõe
+           isso em navigator.connection.saveData) fica só com o pôster: as
+           <source> saem antes de o navegador começar a baixar os 1,3 MB do
+           vídeo. O <video> fica no lugar, com a foto desfocada de fundo. */
+        var conexao = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        if (conexao && conexao.saveData) {
+          Array.prototype.forEach.call(document.querySelectorAll(".hero-video-fundo"), function (video) {
+            Array.prototype.forEach.call(video.querySelectorAll("source"), function (s) {
+              s.remove();
+            });
+            video.removeAttribute("autoplay");
+            video.load();
+          });
         }
 
         /* ---- Palavra que troca no título do hero --------------------------
@@ -497,6 +519,41 @@
           patternMismatch: "Formato inválido. Verifique o número informado.",
         };
 
+        /* ---- Validação sem puxar o tapete do clique -------------------------
+           A mensagem de erro de um campo aparece quando ele perde o foco. Se
+           o foco saiu porque a pessoa tocou no checkbox dos termos (ou em
+           qualquer controle abaixo), a mensagem entra no layout entre o
+           mousedown e o mouseup e empurra o alvo ~22px pra baixo: o clique
+           termina em outro elemento e o checkbox não marca. Foi reproduzido
+           no desktop e no celular. Então a validação do blur/change espera o
+           toque terminar: com o ponteiro pressionado, fica pro próximo
+           pointerup (com teto de 600ms, caso o pointerup se perca num
+           <select> nativo); sem ponteiro (Tab do teclado ou toque, cujos
+           eventos de mouse chegam depois do pointerup), um setTimeout(0)
+           basta pra sair de trás do click. */
+        var ponteiroPressionado = false;
+        document.addEventListener("pointerdown", function () { ponteiroPressionado = true; }, true);
+        document.addEventListener("pointerup", function () { ponteiroPressionado = false; }, true);
+        document.addEventListener("pointercancel", function () { ponteiroPressionado = false; }, true);
+        window.addEventListener("blur", function () { ponteiroPressionado = false; });
+
+        function depoisDoClique(fn) {
+          if (!ponteiroPressionado) {
+            setTimeout(fn, 0);
+            return;
+          }
+          var teto = null;
+          var concluir = function () {
+            clearTimeout(teto);
+            document.removeEventListener("pointerup", concluir, true);
+            document.removeEventListener("pointercancel", concluir, true);
+            setTimeout(fn, 0);
+          };
+          teto = setTimeout(concluir, 600);
+          document.addEventListener("pointerup", concluir, true);
+          document.addEventListener("pointercancel", concluir, true);
+        }
+
         function ligarFormulario(form) {
           var status = form.querySelector("[data-form-status]");
 
@@ -517,12 +574,13 @@
 
           var campos = form.querySelectorAll("input, textarea, select");
           Array.prototype.forEach.call(campos, function (campo) {
-            campo.addEventListener("blur", function () {
-              validarCampo(campo);
-            });
-            campo.addEventListener("change", function () {
-              validarCampo(campo);
-            });
+            var validarDepois = function () {
+              depoisDoClique(function () {
+                validarCampo(campo);
+              });
+            };
+            campo.addEventListener("blur", validarDepois);
+            campo.addEventListener("change", validarDepois);
           });
 
           /* ---- Máscara do WhatsApp -----------------------------------------
@@ -670,8 +728,8 @@
                assume sozinho. */
             if (form.getAttribute("action").indexOf("[") !== -1) {
               var dados = new FormData(form);
-              var linhas = ["Olá, Gilmara! Vim pelo site do Residencial Monte Moriá."];
-              [["interesse", "Interesse"], ["finalidade", "Finalidade"], ["visita", "Visita"], ["nome", "Nome"], ["telefone", "WhatsApp"], ["cidade", "Cidade"]].forEach(function (par) {
+              var linhas = ["Olá, Gilmara Tusthler! Vim pelo site do Residencial Monte Moriá."];
+              [["interesse", "Interesse"], ["finalidade", "Finalidade"], ["visita", "Visita"], ["nome", "Nome"], ["telefone", "WhatsApp"], ["email", "E-mail"]].forEach(function (par) {
                 var v = dados.get(par[0]);
                 if (v) linhas.push(par[1] + ": " + v);
               });
