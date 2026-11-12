@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Residencial Monte Moriá · Lotes em Mantenópolis/ES</title>
+    <meta name="description" content="Residencial Monte Moriá: lotes de 130 a 320 m² em terra firme, com infraestrutura concluída, em Mantenópolis/ES. Atendimento direto com a corretora Gilmara Cardoso Tusthler, CRECI-ES 013167-F." />
+    <!-- [INSERIR DOMÍNIO] no canonical e no Open Graph antes de publicar. -->
+    <link rel="canonical" href="https://[INSERIR-DOMINIO]/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Residencial Monte Moriá" />
+    <meta property="og:description" content="Lotes de 130 a 320 m² em terra firme, com infraestrutura concluída, em Mantenópolis/ES." />
+    <meta property="og:url" content="https://[INSERIR-DOMINIO]/" />
+    <meta property="og:image" content="https://[INSERIR-DOMINIO]/assets/img/fotos/monte-moria-aerea-02.jpg" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Residencial Monte Moriá" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#056370" />
+
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+
+    <link rel="preload" as="font" type="font/woff2" href="assets/fonts/raleway-latin-800-normal.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="assets/fonts/raleway-latin-600-normal.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="assets/fonts/roboto-latin-400-normal.woff2" crossorigin />
+
+    <!-- Tailwind via CDN (mesmo stack do modelo, sem etapa de build). -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/tailwind-config.js"></script>
+
+    <link rel="stylesheet" href="assets/styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "RealEstateAgent",
+        "name": "Residencial Monte Moriá · Gilmara Cardoso Tusthler",
+        "description": "Venda, recompra e revenda de lotes no Residencial Monte Moriá, em Mantenópolis/ES.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Mantenópolis",
+          "addressRegion": "ES",
+          "addressCountry": "BR"
+        },
+        "areaServed": "Mantenópolis e região (ES)"
+      }
+    </script>
+  </head>
+  <body class="flex min-h-screen flex-col bg-paper font-sans text-graphite-900 antialiased">
+    <a href="#conteudo-principal" class="skip-link fixed left-4 top-4 z-[60] rounded-full bg-olive-800 px-4 py-3 text-sm font-medium text-paper">Ir para o conteúdo principal</a>
+
+    <!-- Header no mesmo desenho do site da Widen Club: transparente sobre o
+         hero, menu numa pílula de vidro escuro centralizada, CTA à direita.
+         Ao rolar ganha uma barra escura desfocada (.header--rolado, ver JS). -->
+    <header id="site-header">
+      <div class="header-linha">
+        <a href="#topo" class="header-marca" aria-label="Residencial Monte Moriá, ir para o início">
+          <img src="assets/img/logo-monte-moria-branca.webp" alt="Residencial Monte Moriá" width="759" height="160" decoding="async" />
+        </a>
+
+        <nav class="header-pilula" aria-label="Navegação principal">
+          <a href="#loteamento" data-nav-anchor="#loteamento" class="nav-link">Monte Moriá</a>
+          <a href="#como-funciona" data-nav-anchor="#como-funciona" class="nav-link">Como comprar</a>
+          <a href="#sobre" data-nav-anchor="#sobre" class="nav-link">A corretora</a>
+          <a href="#faq" data-nav-anchor="#faq" class="nav-link">Dúvidas</a>
+          <a href="#fale-conosco" data-nav-anchor="#fale-conosco" class="nav-link">Contato</a>
+        </nav>
+
+        <div class="header-acoes">
+          <div class="header-cta">
+            <a href="#fale-conosco" class="cta-btn cta-btn--icon"><span class="cta-btn__text">Agendar visita</span><span class="cta-btn__hover" aria-hidden="true"><span>Agendar visita</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a>
+          </div>
+          <button id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" class="header-toggle">
+            <span class="sr-only">Abrir menu de navegação</span>
+            <svg id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+            <svg id="icon-close" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <nav id="mobile-menu" aria-label="Navegação móvel" class="header-mnav hidden">
+        <a href="#loteamento" data-nav-anchor="#loteamento" class="nav-link">Monte Moriá</a>
+        <a href="#como-funciona" data-nav-anchor="#como-funciona" class="nav-link">Como comprar</a>
+        <a href="#sobre" data-nav-anchor="#sobre" class="nav-link">A corretora</a>
+        <a href="#faq" data-nav-anchor="#faq" class="nav-link">Dúvidas</a>
+        <a href="#fale-conosco" data-nav-anchor="#fale-conosco" class="nav-link">Contato</a>
+        <a href="#fale-conosco" class="header-mnav__cta">Agendar uma visita</a>
+      </nav>
+    </header>
+
+    <main id="conteudo-principal" class="flex-1">
+
+      <!-- HERO COM A CORRETORA
+           Uma tela inteira (100svh): foto aérea do residencial ao fundo e a
+           Gilmara em destaque à direita, apontando para o título. O recorte
+           dela é irmão do bloco de texto (não filho) e fica por baixo dele no
+           empilhamento; no celular sobe pro alto da tela e esmaece embaixo
+           (mask-image) pra o texto passar por cima sem disputa. -->
+      <section id="topo" data-hero class="hero-foto relative text-paper">
+        <div class="hero-foto__stage flex flex-col overflow-hidden bg-olive-900">
+          <video class="hero-video-fundo absolute inset-0 h-full w-full object-cover" autoplay muted loop playsinline preload="auto" poster="assets/img/fotos/hero-fundo-desfocado.webp" aria-hidden="true">
+            <source src="assets/video/hero-monte-moria-mobile.mp4" type="video/mp4" media="(max-width: 767px) and (orientation: portrait)" />
+            <source src="assets/video/hero-monte-moria.mp4" type="video/mp4" />
+          </video>
+          <div class="hero-overlay absolute inset-0"></div>
+
+          <figure class="hero-gilmara revelar">
+            <div class="hero-gilmara__foto">
+              <img src="assets/img/fotos/gilmara-hero.webp" alt="Gilmara Cardoso Tusthler, corretora do Residencial Monte Moriá" width="1064" height="1332" fetchpriority="high" decoding="async" />
+              <p class="hero-gilmara__nome"><span>Gilmara Cardoso Tusthler</span> <span class="hero-gilmara__sep" aria-hidden="true">|</span> <span>CRECI-ES 013167-F</span></p>
+              <!-- Badges flutuando em volta da Gilmara (só em telas largas). -->
+              <div class="hero-chips revelar hidden xl:block" aria-hidden="true">
+                <div class="hero-chip hero-chip--1">
+                  <p class="hero-chip__title">97% vendidos</p>
+                  <p class="hero-chip__label">Restam poucos lotes no residencial</p>
+                </div>
+                <div class="hero-chip hero-chip--2">
+                  <p class="hero-chip__title">Infraestrutura concluída</p>
+                  <p class="hero-chip__label">Obras entregues em dezembro de 2024</p>
+                </div>
+                <div class="hero-chip hero-chip--3">
+                  <p class="hero-chip__title">130 a 320 m²</p>
+                  <p class="hero-chip__label">Tamanhos variados de lote</p>
+                </div>
+              </div>
+            </div>
+          </figure>
+
+          <div class="hero-conteudo relative z-[2] flex flex-1 flex-col justify-end px-6 pb-16 pt-32 lg:px-14 lg:pb-24 lg:pt-40">
+            <div class="mx-auto grid w-full max-w-7xl">
+              <div class="hero-texto flex flex-col">
+                <h1 class="hero-headline revelar">
+                  <span class="hero-headline__big">O lugar certo</span>
+                  <span class="hero-headline__rest">para construir o seu <span class="sr-only">futuro.</span><span class="palavra-giro" data-palavras="futuro.|lar.|sonho.|patrimônio.|legado.|recomeço.|cantinho." aria-hidden="true"><span class="palavra-giro__item">futuro.</span></span></span>
+                </h1>
+                <p class="hero-subtitulo revelar">Lotes com infraestrutura concluída em Mantenópolis/ES, para quem sonha com a casa própria ou quer investir em imóveis a médio e longo prazo.</p>
+                <div class="revelar mt-9"><a href="https://wa.me/5527999784895?text=Ol%C3%A1%2C%20Gilmara!%20Quero%20consultar%20os%20lotes%20dispon%C3%ADveis%20no%20Residencial%20Monte%20Mori%C3%A1." class="cta-btn cta-btn--whatsapp cta-btn--icon" target="_blank" rel="noopener noreferrer"><span class="cta-btn__text">Consultar lotes disponíveis</span><span class="cta-btn__hover" aria-hidden="true"><span>Consultar lotes disponíveis</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- O LOTEAMENTO: cartão em destaque + cartões de foto (infraestrutura)
+           + três frentes de atendimento (venda, recompra, revenda). -->
+      <section id="loteamento" class="bg-paper px-6 pt-6 pb-10 lg:px-8 lg:pt-8 lg:pb-14">
+        <div class="mx-auto max-w-7xl">
+          <div class="section-divider revelar mb-8 lg:mb-10" aria-hidden="true"><span class="section-divider__plus">+</span></div>
+          <div class="revelar max-w-2xl">
+            <h2 class="text-3xl font-semibold leading-[1.15] tracking-tight text-olive-700 sm:text-4xl lg:text-[44px]"><span class="titulo-tom">Residencial</span> Monte Moriá</h2>
+            <p class="lead mt-4 text-lg leading-relaxed text-graphite-600">São 46.137,07 m² de área total, com cerca de 138 lotes em Mantenópolis, Espírito Santo. Lançado em novembro de 2020, o residencial está com a infraestrutura pronta e quase todos os lotes já têm dono.</p>
+          </div>
+
+          <!-- BANNER DO RESIDENCIAL: aba com localização e metragem encaixada
+               na moldura de um carrossel de fotos (rolagem com scroll-snap;
+               setas, bolinhas e troca automática no JS — ver "Banner do
+               residencial" no site.js). A curva entre a aba e a moldura é o
+               ::after de .banner-res__pe. -->
+          <div class="banner-res mt-8 revelar lg:mt-10" data-banner>
+            <div class="banner-res__topo">
+              <div class="banner-res__aba">
+                <div class="banner-res__aba-conteudo">
+                  <span class="banner-res__info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>Mantenópolis/ES</span>
+                  <span class="banner-res__info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V3l18 18Z"/><path d="M7 17v-4l4 4Z"/></svg><span>Lotes de <strong>130 a 320 m²</strong></span></span>
+                </div>
+                <div class="banner-res__pe" aria-hidden="true"></div>
+              </div>
+              <div class="banner-res__resto">
+                <a href="#fale-conosco" class="banner-res__link">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  Agende uma visita
+                </a>
+                <div class="banner-res__setas">
+                  <button type="button" class="banner-res__seta" data-banner-ant aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+                  <button type="button" class="banner-res__seta" data-banner-prox aria-label="Próxima foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="banner-res__moldura">
+              <ul class="banner-res__trilho" data-banner-trilho aria-label="Fotos do Residencial Monte Moriá">
+                <li class="banner-res__slide" aria-label="1 de 5">
+                  <img src="assets/img/fotos/monte-moria-aerea-01.webp" alt="Vista aérea do cruzamento das ruas calçadas entre as quadras do Residencial Monte Moriá" width="1672" height="941" loading="lazy" decoding="async" />
+                  <p class="banner-res__legenda">Infraestrutura concluída em dezembro de 2024</p>
+                </li>
+                <li class="banner-res__slide" aria-label="2 de 5">
+                  <img src="assets/img/fotos/monte-moria-aerea-02.webp" alt="Vista aérea do Residencial Monte Moriá ao lado do bairro, com as quadras demarcadas" width="1672" height="941" loading="lazy" decoding="async" />
+                  <p class="banner-res__legenda">Ruas calçadas e quadras demarcadas</p>
+                </li>
+                <li class="banner-res__slide" aria-label="3 de 5">
+                  <img src="assets/img/fotos/monte-moria-aerea-03.webp" alt="Rua em curva com postes entre as quadras gramadas do residencial" width="1672" height="941" loading="lazy" decoding="async" />
+                  <p class="banner-res__legenda">Lotes prontos para receber o seu projeto</p>
+                </li>
+                <li class="banner-res__slide" aria-label="4 de 5">
+                  <img src="assets/img/fotos/monte-moria-aerea-04.webp" alt="Quadras do residencial com a cidade de Mantenópolis ao fundo" width="1672" height="941" loading="lazy" decoding="async" />
+                  <p class="banner-res__legenda">97% dos lotes já vendidos</p>
+                </li>
+                <li class="banner-res__slide" aria-label="5 de 5">
+                  <img src="assets/img/fotos/monte-moria-aerea-05.webp" alt="Vista aérea do residencial com a rotatória, o lago e o bairro vizinho" width="1672" height="941" loading="lazy" decoding="async" />
+                  <p class="banner-res__legenda">Pertinho do bairro, cercado de verde</p>
+                </li>
+              </ul>
+            </div>
+
+            <div class="banner-res__pontos" data-banner-pontos>
+              <button type="button" class="banner-res__ponto is-ativo" aria-label="Ir para a foto 1" aria-current="true"></button>
+              <button type="button" class="banner-res__ponto" aria-label="Ir para a foto 2"></button>
+              <button type="button" class="banner-res__ponto" aria-label="Ir para a foto 3"></button>
+              <button type="button" class="banner-res__ponto" aria-label="Ir para a foto 4"></button>
+              <button type="button" class="banner-res__ponto" aria-label="Ir para a foto 5"></button>
+            </div>
+          </div>
+
+          <!-- ATENÇÃO: os itens de infraestrutura abaixo foram tirados do que
+               aparece nas fotos aéreas (calçamento, meio-fio, postes, bocas de
+               lobo). Confirmar com o cliente a lista oficial antes de publicar
+               (água, esgoto e energia não foram citados por falta de dado). -->
+          <div class="solucoes-cards mt-12 revelar">
+            <div class="solucoes-card" tabindex="0">
+              <img src="assets/img/fotos/infra-ruas-calcadas.webp" alt="Cruzamento de ruas calçadas entre as quadras do residencial" width="640" height="800" loading="lazy" decoding="async" class="solucoes-card__img" />
+              <div class="solucoes-card__overlay" aria-hidden="true"></div>
+              <div class="solucoes-card__content">
+                <p class="solucoes-card__eyebrow">Infraestrutura</p>
+                <h3 class="solucoes-card__title">Ruas calçadas</h3>
+                <p class="solucoes-card__desc">As ruas do residencial são pavimentadas com bloquete, com acesso fácil a cada quadra em qualquer época do ano.</p>
+              </div>
+            </div>
+            <div class="solucoes-card" tabindex="0">
+              <img src="assets/img/fotos/infra-meio-fio-iluminacao.webp" alt="Rua com meio-fio e postes de iluminação ao longo das quadras" width="640" height="800" loading="lazy" decoding="async" class="solucoes-card__img" />
+              <div class="solucoes-card__overlay" aria-hidden="true"></div>
+              <div class="solucoes-card__content">
+                <p class="solucoes-card__eyebrow">Infraestrutura</p>
+                <h3 class="solucoes-card__title">Meio-fio e iluminação</h3>
+                <p class="solucoes-card__desc">Quadras delimitadas por meio-fio e postes instalados ao longo das ruas do loteamento.</p>
+              </div>
+            </div>
+            <div class="solucoes-card" tabindex="0">
+              <img src="assets/img/fotos/infra-metragem-lotes.webp" alt="Quadras do residencial divididas em lotes entre ruas calçadas" width="640" height="800" loading="lazy" decoding="async" class="solucoes-card__img" />
+              <div class="solucoes-card__overlay" aria-hidden="true"></div>
+              <div class="solucoes-card__content">
+                <p class="solucoes-card__eyebrow">Os lotes</p>
+                <h3 class="solucoes-card__title">De 130 a 320 m²</h3>
+                <p class="solucoes-card__desc">Tamanhos variados para diferentes projetos, da primeira casa da família a um terreno maior para investir.</p>
+              </div>
+            </div>
+            <div class="solucoes-card" tabindex="0">
+              <img src="assets/img/fotos/infra-terra-firme.webp" alt="Lotes em terra firme junto à rotatória do residencial" width="640" height="800" loading="lazy" decoding="async" class="solucoes-card__img" />
+              <div class="solucoes-card__overlay" aria-hidden="true"></div>
+              <div class="solucoes-card__content">
+                <p class="solucoes-card__eyebrow">Investimento</p>
+                <h3 class="solucoes-card__title">Terra firme</h3>
+                <p class="solucoes-card__desc">Um bem concreto, que não oscila de um dia para o outro como as aplicações financeiras, e fica registrado em seu nome.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-10 border-t border-graphite-900/15 pt-10 lg:mt-12 lg:pt-12">
+            <h3 class="revelar max-w-2xl text-2xl font-semibold text-olive-700 sm:text-3xl">Intermediação na compra, <span class="titulo-tom">na recompra e na revenda</span></h3>
+            <p class="lead revelar mt-3 max-w-2xl text-graphite-600">Seja para comprar o seu lote ou para negociar um que já é seu, a Gilmara acompanha cada etapa da negociação.</p>
+          <div class="atuacao-cards mt-8 grid gap-8 revelar lg:grid-cols-3">
+            <div class="atuacao-card flex flex-col overflow-hidden rounded-[20px] border border-graphite-200 bg-white shadow-soft">
+              <div class="aspect-[16/9] flex-none overflow-hidden">
+                <img src="assets/img/fotos/monte-moria-aerea-03.webp" alt="Quadras verdes do residencial ao longo da rua em curva" width="1672" height="941" loading="lazy" decoding="async" class="h-full w-full object-cover" />
+              </div>
+              <div class="flex flex-1 flex-col p-8">
+                <p class="mb-3 text-sm font-medium uppercase tracking-[0.14em] text-olive-800">Venda</p>
+                <h3 class="text-2xl font-semibold leading-[1.15] text-graphite-900">Compre o seu lote</h3>
+                <div class="prose-institucional mt-4 text-graphite-700">
+                  <p>Corretagem na compra do seu lote, com orientação em cada etapa: escolha, documentação e fechamento.</p>
+                </div>
+                <div class="mt-auto pt-8"><a href="https://wa.me/5527999784895?text=Ol%C3%A1%2C%20Gilmara!%20Quero%20comprar%20um%20lote%20no%20Residencial%20Monte%20Mori%C3%A1." class="cta-btn cta-btn--dark cta-btn--icon" target="_blank" rel="noopener noreferrer"><span class="cta-btn__text">Quero comprar um lote</span><span class="cta-btn__hover" aria-hidden="true"><span>Quero comprar um lote</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+              </div>
+            </div>
+
+            <div class="atuacao-card flex flex-col overflow-hidden rounded-[20px] border border-graphite-200 bg-white shadow-soft">
+              <div class="aspect-[16/9] flex-none overflow-hidden">
+                <img src="assets/img/fotos/monte-moria-aerea-04.webp" alt="Lotes gramados entre ruas calçadas do residencial" width="1672" height="941" loading="lazy" decoding="async" class="h-full w-full object-cover" />
+              </div>
+              <div class="flex flex-1 flex-col p-8">
+                <p class="mb-3 text-sm font-medium uppercase tracking-[0.14em] text-olive-800">Recompra</p>
+                <h3 class="text-2xl font-semibold leading-[1.15] text-graphite-900">Precisa se desfazer do seu lote?</h3>
+                <div class="prose-institucional mt-4 text-graphite-700">
+                  <p>Recompra de lotes de clientes que desejam ou precisam se desfazer do seu terreno, com uma conversa franca sobre valores e prazos.</p>
+                </div>
+                <div class="mt-auto pt-8"><a href="https://wa.me/5527999784895?text=Ol%C3%A1%2C%20Gilmara!%20Tenho%20um%20lote%20no%20Residencial%20Monte%20Mori%C3%A1%20e%20gostaria%20de%20saber%20sobre%20a%20recompra." class="cta-btn cta-btn--dark cta-btn--icon" target="_blank" rel="noopener noreferrer"><span class="cta-btn__text">Falar sobre recompra</span><span class="cta-btn__hover" aria-hidden="true"><span>Falar sobre recompra</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+              </div>
+            </div>
+
+            <div class="atuacao-card flex flex-col overflow-hidden rounded-[20px] border border-graphite-200 bg-white shadow-soft">
+              <div class="aspect-[16/9] flex-none overflow-hidden">
+                <img src="assets/img/fotos/monte-moria-aerea-05.webp" alt="Vista aérea do bairro vizinho e do acesso ao residencial" width="1672" height="941" loading="lazy" decoding="async" class="h-full w-full object-cover" />
+              </div>
+              <div class="flex flex-1 flex-col p-8">
+                <p class="mb-3 text-sm font-medium uppercase tracking-[0.14em] text-olive-800">Revenda</p>
+                <h3 class="text-2xl font-semibold leading-[1.15] text-graphite-900">Revenda com negociação clara</h3>
+                <div class="prose-institucional mt-4 text-graphite-700">
+                  <p>Revenda de lotes para novos compradores e investidores, com negociação clara e transparente para os dois lados.</p>
+                </div>
+                <div class="mt-auto pt-8"><a href="https://wa.me/5527999784895?text=Ol%C3%A1%2C%20Gilmara!%20Gostaria%20de%20revender%20meu%20lote%20no%20Residencial%20Monte%20Mori%C3%A1." class="cta-btn cta-btn--dark cta-btn--icon" target="_blank" rel="noopener noreferrer"><span class="cta-btn__text">Quero revender meu lote</span><span class="cta-btn__hover" aria-hidden="true"><span>Quero revender meu lote</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMO FUNCIONA: as etapas descritas no texto original do serviço de
+           venda (escolha, documentação e fechamento), com a visita antes.
+           Confirmar a ordem com a cliente. -->
+      <section id="como-funciona" class="bg-white px-6 pt-6 pb-10 lg:px-8 lg:pt-8 lg:pb-14">
+        <div class="mx-auto max-w-7xl">
+          <div class="section-divider revelar mb-8 lg:mb-10" aria-hidden="true"><span class="section-divider__plus">+</span></div>
+          <div class="revelar mx-auto max-w-2xl text-center">
+            <h2 class="text-3xl font-semibold leading-[1.15] tracking-tight text-olive-700 sm:text-4xl lg:text-[44px]">Do primeiro contato <span class="titulo-tom">à escritura do seu lote</span></h2>
+            <p class="lead mt-4 text-lg leading-relaxed text-graphite-600">Você fala direto com a corretora em todas as etapas, sem intermediários.</p>
+          </div>
+          <div class="relative mt-10 lg:mt-12">
+            <ol class="relative grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+              <li class="revelar relative flex flex-col items-center text-left lg:after:absolute lg:after:left-1/2 lg:after:top-5 lg:after:h-px lg:after:w-[calc(100%+2rem)] lg:after:bg-graphite-200 lg:after:content-['']">
+                <span class="relative z-10 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-olive-700 text-sm font-semibold text-white">01</span>
+                <div class="glass-card--dark mt-5 flex w-full flex-1 flex-col p-6 transition-transform duration-300 hover:-translate-y-1 lg:p-7">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-full bg-olive-50 text-olive-700"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></svg></span>
+                  <h3 class="mt-4 text-lg font-semibold leading-snug text-graphite-900">Conversa inicial</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">Pelo WhatsApp ou pelo formulário, você conta o que procura: tamanho do lote, finalidade e prazo.</p>
+                </div>
+              </li>
+              <li class="revelar relative flex flex-col items-center text-left lg:after:absolute lg:after:left-1/2 lg:after:top-5 lg:after:h-px lg:after:w-[calc(100%+2rem)] lg:after:bg-graphite-200 lg:after:content-['']">
+                <span class="relative z-10 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-olive-700 text-sm font-semibold text-white">02</span>
+                <div class="glass-card--dark mt-5 flex w-full flex-1 flex-col p-6 transition-transform duration-300 hover:-translate-y-1 lg:p-7">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-full bg-olive-50 text-olive-700"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></svg></span>
+                  <h3 class="mt-4 text-lg font-semibold leading-snug text-graphite-900">Visita ao loteamento</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">Você conhece o residencial pessoalmente, vê as ruas prontas e os lotes disponíveis.</p>
+                </div>
+              </li>
+              <li class="revelar relative flex flex-col items-center text-left lg:after:absolute lg:after:left-1/2 lg:after:top-5 lg:after:h-px lg:after:w-[calc(100%+2rem)] lg:after:bg-graphite-200 lg:after:content-['']">
+                <span class="relative z-10 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-olive-700 text-sm font-semibold text-white">03</span>
+                <div class="glass-card--dark mt-5 flex w-full flex-1 flex-col p-6 transition-transform duration-300 hover:-translate-y-1 lg:p-7">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-full bg-olive-50 text-olive-700"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" /> <path d="M3 9h18" /> <path d="M9 21V9" /></svg></span>
+                  <h3 class="mt-4 text-lg font-semibold leading-snug text-graphite-900">Escolha do lote</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">Definição do lote e das condições de negociação, com conversa franca sobre expectativas.</p>
+                </div>
+              </li>
+              <li class="revelar relative flex flex-col items-center text-left">
+                <span class="relative z-10 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-olive-700 text-sm font-semibold text-white">04</span>
+                <div class="glass-card--dark mt-5 flex w-full flex-1 flex-col p-6 transition-transform duration-300 hover:-translate-y-1 lg:p-7">
+                  <span class="flex h-10 w-10 items-center justify-center rounded-full bg-olive-50 text-olive-700"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="m9 14 2 2 4-4" /></svg></span>
+                  <h3 class="mt-4 text-lg font-semibold leading-snug text-graphite-900">Documentação e fechamento</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">Acompanhamento da documentação até o fechamento, para o lote ficar registrado em seu nome.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Faixa de respiro com foto do loteamento em paralaxe: a foto é mais
+           alta que a faixa e o site.js a desloca mais devagar que a rolagem
+           ([data-paralaxe]). Sem JS ou com movimento reduzido fica parada. -->
+      <div class="faixa-paralaxe" data-paralaxe>
+        <img src="assets/img/fotos/monte-moria-aerea-contato.webp" alt="Vista aérea do Residencial Monte Moriá, com as quadras, as ruas calçadas e a praça de entrada" width="1672" height="941" loading="lazy" decoding="async" class="faixa-paralaxe__img" />
+        <div class="faixa-paralaxe__veu" aria-hidden="true"></div>
+        <p class="faixa-paralaxe__texto">
+          <span class="faixa-paralaxe__grande revelar revelar--subir">O lugar certo</span>
+          <span class="faixa-paralaxe__resto revelar revelar--subir">para construir o seu futuro</span>
+        </p>
+      </div>
+
+      <!-- SOBRE: a corretora (cartão em destaque) + indicadores do
+           empreendimento. O retrato da Gilmara é irmão do cartão
+           (.solucoes-featured__portrait--sobre) para escapar da borda. -->
+      <section id="sobre" class="bg-mesh-light px-6 pt-6 pb-10 lg:px-8 lg:pt-8 lg:pb-14">
+        <div class="mx-auto max-w-7xl">
+          <div class="section-divider revelar mb-8 lg:mb-10" aria-hidden="true"><span class="section-divider__plus">+</span></div>
+
+          <div class="relative revelar">
+            <div class="solucoes-featured p-10 lg:p-14">
+              <img src="assets/img/fotos/monte-moria-aerea-02.webp" alt="" aria-hidden="true" width="1672" height="941" loading="lazy" decoding="async" class="solucoes-featured__img" />
+              <div class="solucoes-featured__overlay" aria-hidden="true"></div>
+              <div class="solucoes-featured__content solucoes-featured__content--sobre">
+                <div class="max-w-3xl">
+                  <h2 class="text-3xl font-semibold leading-[1.15] tracking-tight sm:text-4xl lg:text-[44px]">Gilmara <span class="titulo-tom">Cardoso Tusthler</span></h2>
+                  <div class="prose-institucional mt-5 text-lg leading-relaxed text-paper/75">
+                    <p>Responsável pelo administrativo e financeiro do loteamento desde 2020 e corretora de imóveis desde 2023.</p>
+                    <p>“Acompanho o Residencial Monte Moriá desde o lançamento e conheço cada etapa do empreendimento. Cuido pessoalmente de cada atendimento, com proximidade e transparência, porque acredito que honestidade e integridade são a base de qualquer negócio.”</p>
+                  </div>
+                  <div class="mt-8"><a href="https://wa.me/5527999784895?text=Ol%C3%A1%2C%20Gilmara!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20o%20Residencial%20Monte%20Mori%C3%A1." class="cta-btn cta-btn--outline cta-btn--icon" target="_blank" rel="noopener noreferrer"><span class="cta-btn__text">Falar com a corretora Gilmara</span><span class="cta-btn__hover" aria-hidden="true"><span>Falar com a corretora Gilmara</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+                </div>
+              </div>
+            </div>
+            <img src="assets/img/fotos/gilmara-cardoso-tusthler.webp" alt="Gilmara Cardoso Tusthler, corretora do Residencial Monte Moriá" width="700" height="1132" loading="lazy" decoding="async" class="solucoes-featured__portrait solucoes-featured__portrait--sobre" />
+            <p class="sobre-credencial hidden lg:block"><span>Gilmara Cardoso Tusthler</span> <span class="hero-gilmara__sep" aria-hidden="true">|</span> <span>CRECI-ES 013167-F</span></p>
+          </div>
+
+          <!-- O RESIDENCIAL EM NÚMEROS: faixa clara com três itens, ícone de
+               traço à esquerda e número + legenda à direita, separados por
+               filetes. Ícones desenhados à mão em SVG (viewBox 64, traço 1.6),
+               no estilo de ilustração de linha da referência do cliente. -->
+          <div class="numeros mt-10 lg:mt-12" role="group" aria-label="O residencial em números">
+            <div class="numeros__item revelar">
+              <svg class="numeros__icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="53" cy="11" r="3.5"/><path d="M15 34c-4 0-8-3-8-7 0-3 2-5 4-6 0-5 4-9 9-9 4 0 7 2 8 5 4 0 7 3 7 7s-3 7-7 7"/><path d="M21 34v13M21 41l-3-3M21 38l3-3"/><path d="M37 37c-3 0-5-2-5-5s2-5 5-5c1-3 3-4 6-4 3 0 6 3 6 6 2 1 3 2 3 4 0 3-2 4-4 4"/><path d="M42 37v8"/><path d="M47 47c0-3 2-5 5-5s5 2 5 5"/><path d="M4 50c8-5 18-6 28-2"/><path d="M12 59c10-9 28-13 48-7"/><path d="M29 54l5 5M37 52l4 7M45 50l3 9"/></svg>
+              <div>
+                <p class="numeros__valor font-display" data-contador>46.137 m²</p>
+                <p class="numeros__legenda">de área total no residencial</p>
+              </div>
+            </div>
+            <div class="numeros__item revelar">
+              <svg class="numeros__icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M32 24c-4-5-7-8-7-11a7 7 0 0 1 14 0c0 3-3 6-7 11Z"/><circle cx="32" cy="13" r="2.5"/><path d="M20 30h24l14 24H6Z"/><path d="M13 42h38"/><path d="M28 30l-4.7 24M36 30l4.7 24"/><circle cx="9" cy="23" r="4"/><path d="M9 27v6"/><circle cx="55" cy="23" r="4"/><path d="M55 27v6"/><path d="M4 58h56"/></svg>
+              <div>
+                <p class="numeros__valor font-display" data-contador>138 lotes</p>
+                <p class="numeros__legenda">no empreendimento, aproximadamente</p>
+              </div>
+            </div>
+            <div class="numeros__item revelar">
+              <svg class="numeros__icone" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 34 24 20l17 14"/><path d="M11 31v23h26V31"/><path d="M20 54V43h8v11"/><path d="M30 37h4v4h-4z"/><path d="M19 22v-6h4v3"/><rect x="42" y="22" width="17" height="11" rx="1.5"/><path d="m46.5 27.5 2.5 2.5 5.5-5.5"/><path d="M50.5 33v21"/><path d="M4 54h56"/><path d="M8 58h10M44 58h12"/></svg>
+              <div>
+                <p class="numeros__valor font-display" data-contador>97%</p>
+                <p class="numeros__legenda">dos lotes já vendidos</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- POR QUE INVESTIR + VALORES: texto e cartões vêm do conteúdo
+           original da página (Por que investir em lotes / Nossos valores). -->
+      <section id="proposito" class="bg-white px-6 pt-6 pb-10 lg:px-8 lg:pt-8 lg:pb-14">
+        <div class="mx-auto max-w-7xl">
+          <div class="section-divider revelar mb-8 lg:mb-10" aria-hidden="true"><span class="section-divider__plus">+</span></div>
+          <div class="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
+            <div class="revelar max-w-xl">
+              <h2 class="text-3xl font-semibold leading-[1.15] tracking-tight text-olive-700 sm:text-4xl lg:text-[44px]">Um patrimônio <span class="titulo-tom">que você pode ver e pisar</span></h2>
+              <p class="lead mt-4 text-lg leading-relaxed text-graphite-600">O imóvel é considerado uma das formas mais seguras de investir. A valorização depende do mercado e do tempo, e conversamos com franqueza sobre expectativas antes de qualquer decisão.</p>
+              <div class="mt-6"><a href="#fale-conosco" class="cta-btn cta-btn--icon"><span class="cta-btn__text">Quero conhecer os lotes</span><span class="cta-btn__hover" aria-hidden="true"><span>Quero conhecer os lotes</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="revelar revelar--right flex flex-col justify-between gap-6 rounded-[20px] border border-graphite-200 bg-white p-6 shadow-soft">
+                <span class="text-olive-700"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /> <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg></span>
+                <div>
+                  <h3 class="text-xl font-semibold leading-snug text-graphite-900">Bem concreto</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">Diferente de aplicações que oscilam de um dia para o outro, o terreno é um bem real, registrado em seu nome.</p>
+                </div>
+              </div>
+              <div class="revelar revelar--right flex flex-col justify-between gap-6 rounded-[20px] border border-graphite-200 bg-white p-6 shadow-soft">
+                <span class="text-olive-700"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20" /> <path d="m5 20 3-12 4 6 4-8 3 14" /></svg></span>
+                <div>
+                  <h3 class="text-xl font-semibold leading-snug text-graphite-900">Infraestrutura pronta</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">Com as obras concluídas em 2024, você não precisa esperar o loteamento ficar pronto.</p>
+                </div>
+              </div>
+              <div class="revelar revelar--right flex flex-col justify-between gap-6 rounded-[20px] border border-graphite-200 bg-white p-6 shadow-soft">
+                <span class="text-olive-700"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h6v6" /> <path d="m22 7-8.5 8.5-5-5L2 17" /></svg></span>
+                <div>
+                  <h3 class="text-xl font-semibold leading-snug text-graphite-900">Potencial de valorização</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">Com o crescimento da região, os lotes têm potencial de valorização a médio e longo prazo.</p>
+                </div>
+              </div>
+              <div class="revelar revelar--right flex flex-col justify-between gap-6 rounded-[20px] border border-graphite-200 bg-white p-6 shadow-soft">
+                <span class="text-olive-700"><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" /></svg></span>
+                <div>
+                  <h3 class="text-xl font-semibold leading-snug text-graphite-900">Casa própria ou patrimônio</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-graphite-600">Construa a casa da sua família ou guarde o lote como patrimônio para o futuro.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-10 border-t border-graphite-200 pt-10 lg:mt-12 lg:pt-12">
+            <!-- Lançamento: Residencial Monte Moriá 2 ("em breve"). Sem números
+                 nem datas de propósito: entram aqui quando forem oficiais. -->
+            <div class="lancamento revelar">
+              <img src="assets/img/fotos/monte-moria-2-lancamento.webp" alt="" aria-hidden="true" width="1600" height="902" loading="lazy" decoding="async" class="lancamento__img" />
+              <div class="lancamento__overlay" aria-hidden="true"></div>
+              <div class="lancamento__texto">
+                <h2 class="text-3xl font-semibold leading-[1.15] tracking-tight text-paper sm:text-4xl lg:text-[44px]">Residencial Monte Moriá 2 <span class="titulo-tom">está chegando.</span></h2>
+                <p class="lead mt-4 max-w-xl text-lg leading-relaxed text-paper/85">Um novo residencial está a caminho em Mantenópolis/ES. Deixe seu contato e seja um dos primeiros a receber as novidades e as condições de lançamento.</p>
+                <div class="mt-8"><a href="https://wa.me/5527999784895?text=Ol%C3%A1%2C%20Gilmara!%20Quero%20receber%20as%20novidades%20do%20lan%C3%A7amento%20do%20Residencial%20Monte%20Mori%C3%A1%202." class="cta-btn cta-btn--icon" target="_blank" rel="noopener noreferrer"><span class="cta-btn__text">Quero ser avisado do lançamento</span><span class="cta-btn__hover" aria-hidden="true"><span>Quero ser avisado do lançamento</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+              </div>
+              <div class="lancamento__marca" aria-hidden="true">
+                <span class="lancamento__nome">Monte Moriá</span>
+                <span class="lancamento__numero">2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ: respostas baseadas só no conteúdo já presente na página. -->
+      <section id="faq" class="bg-mesh-light px-6 pt-6 pb-10 lg:px-8 lg:pt-8 lg:pb-14">
+        <div class="mx-auto max-w-7xl">
+          <div class="section-divider revelar mb-8 lg:mb-10" aria-hidden="true"><span class="section-divider__plus">+</span></div>
+          <div class="revelar mx-auto max-w-2xl text-center">
+            <h2 class="text-3xl font-semibold leading-[1.15] tracking-tight text-olive-700 sm:text-4xl lg:text-[44px]">Tire suas dúvidas <span class="titulo-tom">sobre o residencial</span></h2>
+          </div>
+
+          <div class="mx-auto mt-8 max-w-3xl divide-y divide-graphite-900/15 lg:mt-10">
+            <details class="faq-item revelar">
+              <summary class="faq-item__question">
+                Onde fica o Residencial Monte Moriá?
+                <svg class="faq-item__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </summary>
+              <p class="faq-item__answer">Em Mantenópolis, Espírito Santo. O endereço completo é passado no agendamento da visita.</p>
+            </details>
+            <details class="faq-item revelar">
+              <summary class="faq-item__question">
+                Ainda há lotes disponíveis?
+                <svg class="faq-item__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </summary>
+              <p class="faq-item__answer">Poucos: 97% dos lotes já foram vendidos. Fale com a Gilmara para saber quais ainda estão disponíveis e também sobre lotes em revenda.</p>
+            </details>
+            <details class="faq-item revelar">
+              <summary class="faq-item__question">
+                Qual o tamanho dos lotes?
+                <svg class="faq-item__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </summary>
+              <p class="faq-item__answer">Os lotes têm de 130 a 320 m², em uma área total de 46.137,07 m².</p>
+            </details>
+            <details class="faq-item revelar">
+              <summary class="faq-item__question">
+                A infraestrutura já está pronta?
+                <svg class="faq-item__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </summary>
+              <p class="faq-item__answer">Sim. Toda a obra de infraestrutura do loteamento foi concluída em dezembro de 2024.</p>
+            </details>
+            <details class="faq-item revelar">
+              <summary class="faq-item__question">
+                Tenho um lote no residencial e quero vender. Vocês ajudam?
+                <svg class="faq-item__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </summary>
+              <p class="faq-item__answer">Sim. Fazemos a recompra de lotes de clientes que desejam ou precisam se desfazer do terreno, e também a revenda para novos compradores e investidores.</p>
+            </details>
+            <details class="faq-item revelar">
+              <summary class="faq-item__question">
+                Vocês atendem quem mora fora de Mantenópolis?
+                <svg class="faq-item__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </summary>
+              <p class="faq-item__answer">Sim. Atendemos Mantenópolis e região, num raio de 150 a 200 km, e o primeiro contato pode ser feito todo pelo WhatsApp.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- FORMULÁRIO FINAL (#fale-conosco)
+           Mesmo formulário em duas etapas do modelo. Enquanto não houver um
+           endpoint real em `action`, o script detecta o placeholder e envia os
+           dados como mensagem pronta no WhatsApp da Gilmara. -->
+      <section class="secao-contato relative overflow-hidden bg-olive-950 px-6 py-16 lg:px-8 lg:py-24">
+        <img src="assets/img/fotos/monte-moria-aerea-contato.webp" alt="" aria-hidden="true" width="1672" height="941" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover" />
+        <div class="secao-contato__veu absolute inset-0" aria-hidden="true"></div>
+        <div class="relative mx-auto max-w-7xl">
+          <div class="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-12">
+            <div class="revelar max-w-2xl">
+              <h2 class="text-white text-3xl font-semibold leading-[1.15] tracking-tight sm:text-4xl lg:text-[44px]">Residencial Monte Moriá. <span class="titulo-tom">Seu lote em terra firme.</span></h2>
+              <p class="mt-5 text-lg leading-relaxed text-paper/80">Preencha o formulário com seus dados e nossa equipe irá entrar em contato para agendar sua visita ao residencial.</p>
+              <div class="mt-8"><a href="#fale-conosco" data-chamar-form class="cta-btn cta-btn--outline cta-btn--icon"><span class="cta-btn__text">Quero agendar minha visita</span><span class="cta-btn__hover" aria-hidden="true"><span>Quero agendar minha visita</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+            </div>
+
+            <div id="fale-conosco" class="glass-card--hero revelar p-6 lg:p-8">
+              <h3 class="font-display text-xl font-bold leading-snug text-olive-700 lg:text-2xl">Vamos conversar sobre o seu lote.</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-graphite-600">Preencha aqui os seus dados e nossa equipe irá entrar em contato.</p>
+
+              <form data-form-endpoint data-form-steps data-whatsapp="5527999784895" action="[INSERIR_ENDPOINT]" method="POST" novalidate class="mt-5 flex flex-col gap-4">
+                <input type="hidden" name="origem" value="Site Residencial Monte Moriá" />
+                <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+                <div data-form-step="1" class="form-step form-step--visivel flex flex-col gap-4">
+                  <fieldset class="border-0 p-0">
+                    <legend class="form-legend">O que você procura</legend>
+                    <div class="flex flex-col gap-4">
+                      <div>
+                        <label for="interesse" class="form-label">Tenho interesse em <span aria-hidden="true">*</span></label>
+                        <select id="interesse" name="interesse" required class="form-input"><option value="">Selecione uma opção</option><option value="Comprar um lote">Comprar um lote</option><option value="Vender meu lote (recompra)">Vender meu lote (recompra)</option><option value="Revender meu lote">Revender meu lote</option><option value="Ainda não sei / quero orientação">Ainda não sei / quero orientação</option></select>
+                        <p class="field-error" role="alert"></p>
+                      </div>
+                      <div>
+                        <label for="finalidade" class="form-label">Finalidade <span class="form-optional">(opcional)</span></label>
+                        <select id="finalidade" name="finalidade" class="form-input"><option value="">Selecione uma opção</option><option value="Construir minha casa">Construir minha casa</option><option value="Investimento">Investimento</option><option value="Ainda não sei">Ainda não sei</option></select>
+                      </div>
+                      <div>
+                        <label for="visita" class="form-label">Quando gostaria de visitar? <span class="form-optional">(opcional)</span></label>
+                        <select id="visita" name="visita" class="form-input"><option value="">Selecione uma opção</option><option value="Esta semana">Esta semana</option><option value="Este mês">Este mês</option><option value="Ainda não sei">Ainda não sei</option></select>
+                      </div>
+                    </div>
+                  </fieldset>
+
+                  <button type="button" data-form-next class="cta-btn cta-btn--whatsapp cta-btn--block cta-btn--icon"><span class="cta-btn__text">Continuar</span><span class="cta-btn__hover" aria-hidden="true"><span>Continuar</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></button>
+                </div>
+
+                <div data-form-step="2" hidden class="form-step flex flex-col gap-4">
+                  <fieldset class="border-0 p-0">
+                    <legend class="form-legend">Seus dados</legend>
+                    <div class="flex flex-col gap-4">
+                      <div>
+                        <label for="nome" class="form-label">Nome completo <span aria-hidden="true">*</span></label>
+                        <input type="text" id="nome" name="nome" required autocomplete="name" class="form-input" placeholder="Insira seu nome" />
+                        <p class="field-error" role="alert"></p>
+                      </div>
+                      <div>
+                        <label for="telefone" class="form-label">WhatsApp <span aria-hidden="true">*</span></label>
+                        <input type="tel" id="telefone" name="telefone" required autocomplete="tel" inputmode="numeric" maxlength="14" pattern="^[0-9\(\)+\-\s]{8,14}$" class="form-input" placeholder="DDD+WhatsApp" />
+                        <p class="field-error" role="alert"></p>
+                      </div>
+                      <div>
+                        <label for="cidade" class="form-label">Cidade <span class="form-optional">(opcional)</span></label>
+                        <input type="text" id="cidade" name="cidade" autocomplete="address-level2" class="form-input" placeholder="Onde você mora" />
+                      </div>
+                    </div>
+                  </fieldset>
+
+                  <div>
+                    <label class="flex items-start gap-2.5 text-sm leading-snug text-graphite-700">
+                      <input type="checkbox" id="termos" name="termos" required class="mt-0.5 h-4 w-4 flex-none rounded border-graphite-300 text-olive-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold-600 focus-visible:outline-offset-2" />
+                      <span>Aceito os <a href="termos.html" class="font-medium text-olive-700 underline underline-offset-2 hover:text-olive-800" target="_blank" rel="noopener noreferrer">Termos de uso</a> e a <a href="privacidade.html" class="font-medium text-olive-700 underline underline-offset-2 hover:text-olive-800" target="_blank" rel="noopener noreferrer">Política de privacidade</a>.</span>
+                    </label>
+                    <p class="field-error" role="alert"></p>
+                  </div>
+
+                  <p data-form-status class="form-status" role="status" hidden></p>
+
+                  <div class="flex gap-3">
+                    <button type="button" data-form-back class="cta-btn cta-btn--dark flex-1"><span class="cta-btn__text">Voltar</span></button>
+                    <button type="submit" class="cta-btn cta-btn--whatsapp cta-btn--icon flex-[2]"><span class="cta-btn__text">Enviar</span><span class="cta-btn__hover" aria-hidden="true"><span>Enviar</span><svg viewBox="0 0 24 24" focusable="false"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="border-t border-graphite-200 bg-white px-6 py-14 text-graphite-700 lg:px-8 lg:py-20">
+      <div class="mx-auto max-w-7xl">
+        <div class="flex w-full flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+          <div class="flex w-full flex-col items-start gap-6 lg:max-w-md">
+            <!-- Logo do residencial e da corretora lado a lado, com um fio
+                 vertical entre as duas. -->
+            <div class="flex items-center gap-3 sm:gap-5">
+              <img src="assets/img/logo-monte-moria.webp" alt="Residencial Monte Moriá" width="759" height="160" loading="lazy" decoding="async" class="h-8 w-auto sm:h-11" />
+              <span class="h-8 w-px flex-none bg-graphite-200 sm:h-11" aria-hidden="true"></span>
+              <img src="assets/img/logo-gilmara-corretora.webp" alt="Gilmara Cardoso Tusthler, corretora de imóveis" width="600" height="156" loading="lazy" decoding="async" class="h-8 w-auto sm:h-12" />
+            </div>
+            <p class="leading-relaxed text-graphite-600">Residencial Monte Moriá, Mantenópolis/ES. Lotes em terra firme, com infraestrutura concluída.</p>
+            <!-- [INSERIR] links reais do Facebook, do Instagram e do perfil no Google (Google Meu Negócio / Maps). -->
+            <ul class="footer-social flex items-center">
+              <li><a href="#" class="footer-link" aria-label="Facebook do Residencial Monte Moriá"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg></a></li>
+              <li><a href="#" class="footer-link" aria-label="Instagram do Residencial Monte Moriá"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /> <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /> <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg></a></li>
+              <li><a href="#" class="footer-link" aria-label="Residencial Monte Moriá no Google"><svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.2 7.5A8.5 8.5 0 1 0 20.5 12h-8" /></svg></a></li>
+            </ul>
+          </div>
+
+          <div class="grid w-full gap-10 sm:grid-cols-2 lg:w-auto lg:gap-20">
+            <div>
+              <h3 class="mb-4 text-sm font-semibold uppercase tracking-[0.1em] text-olive-700">Navegação</h3>
+              <ul class="flex flex-col gap-2">
+                <li><a href="#loteamento" class="footer-link inline-block py-1 text-base">Monte Moriá</a></li>
+                <li><a href="#como-funciona" class="footer-link inline-block py-1 text-base">Como comprar</a></li>
+                <li><a href="#sobre" class="footer-link inline-block py-1 text-base">A corretora</a></li>
+                <li><a href="#faq" class="footer-link inline-block py-1 text-base">Dúvidas</a></li>
+                <li><a href="#fale-conosco" class="footer-link inline-block py-1 text-base">Contato</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="mb-4 text-sm font-semibold uppercase tracking-[0.1em] text-olive-700">Contato</h3>
+              <ul class="flex flex-col gap-3">
+                <li><a href="mailto:contato@montemoria.com" class="footer-link flex items-center gap-2.5 text-base"><svg class="h-5 w-5 flex-none text-olive-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2" /> <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>contato@montemoria.com</a></li>
+                <li><a href="https://wa.me/5527999784895" target="_blank" rel="noopener noreferrer" class="footer-link flex items-center gap-2.5 text-base"><svg class="h-5 w-5 flex-none text-olive-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>(27) 99978-4895</a></li>
+                <li class="flex items-center gap-2.5 text-base text-graphite-700"><svg class="h-5 w-5 flex-none text-olive-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></svg>Residencial Monte Moriá<br />Mantenópolis – ES</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 flex flex-col gap-4 border-t border-graphite-200 pt-8 text-sm text-graphite-500 lg:flex-row lg:items-center lg:justify-between">
+          <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
+            <p>&copy; <span id="ano">2026</span> Residencial Monte Moriá. Loteamento Cardoso Ltda, CNPJ 34.769.282/0001-08.</p>
+            <ul class="flex flex-wrap items-center gap-x-6 gap-y-2">
+              <li><a href="privacidade.html" class="footer-link underline-offset-2 hover:underline">Política de privacidade</a></li>
+              <li><a href="termos.html" class="footer-link underline-offset-2 hover:underline">Termos de uso</a></li>
+            </ul>
+          </div>
+          <p>Desenvolvido por <a href="https://widencreative.com/" class="footer-link underline underline-offset-2" target="_blank" rel="noopener noreferrer">Widen Creative</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <a href="https://wa.me/5527999784895?text=Ol%C3%A1%2C%20Gilmara!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20o%20Residencial%20Monte%20Mori%C3%A1." target="_blank" rel="noopener noreferrer" aria-label="Falar com a corretora Gilmara pelo WhatsApp" class="whatsapp-fab">
+      <img src="assets/img/icons/whatsapp.webp" alt="" width="224" height="224" class="whatsapp-fab__icon" />
+    </a>
+
+    <style>
+      .footer-link { color: color-mix(in srgb, var(--color-paper) 80%, transparent); transition: color 200ms ease; }
+      .footer-social { gap: 0.25rem; margin-inline-start: -0.75rem; }
+      .footer-social .footer-link {
+        display: flex; align-items: center; justify-content: center;
+        width: 44px; height: 44px;
+      }
+      .footer-link:hover { color: var(--color-paper); }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+    <script src="assets/site.js"></script>
+  </body>
+</html>

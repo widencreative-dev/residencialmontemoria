@@ -1,0 +1,3256 @@
+/* ==========================================================================
+   BS Agro Capital — estilos customizados
+   Complementa o Tailwind carregado via CDN. A paleta está duplicada aqui como
+   variáveis CSS (e em assets/tailwind-config.js para as classes utilitárias);
+   ao mudar uma cor, mudar nos dois lugares.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Fontes (self-hosted, sem CDN de terceiros)
+   Apenas estes pesos existem no projeto:
+   Raleway 400/600 (títulos e botões), Roboto 300/400/500 (texto e rótulos)
+   e a Raleway 300/800 registrada como "Raleway Hero", usada só no título do
+   hero. O nome separado é de propósito: se a 800 entrasse na família
+   "Raleway", todo font-weight 700 do site (badges, link do banner, título
+   do formulário) passaria a cair na 800 em vez da 600.
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Raleway Hero";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("fonts/raleway-latin-300-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Raleway Hero";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("fonts/raleway-latin-800-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/raleway-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/raleway-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("fonts/roboto-latin-300-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/roboto-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/roboto-latin-500-normal.woff2") format("woff2");
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  --font-display: "Raleway", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif;
+
+  --color-olive-950: #022f35;
+  --color-olive-900: #033f47;
+  --color-olive-800: #04505a;
+  --color-olive-700: #056370;
+  --color-olive-600: #0a7684;
+  --color-olive-100: #e3f0f1;
+  --color-olive-50: #f2f8f9;
+
+  --color-gold-800: #056370;
+  --color-gold-600: #056370;
+  --color-gold-500: #056370;
+  --color-gold-400: #7cc0c9;
+  --color-gold-300: #a6d5db;
+
+  --color-graphite-950: #10131a;
+  --color-graphite-900: #171b24;
+  --color-graphite-800: #232833;
+  --color-graphite-700: #333a47;
+  --color-graphite-600: #4b5262;
+  --color-graphite-500: #6b7180;
+  --color-graphite-300: #bcc0c7;
+
+  --color-paper: #ffffff;
+  --color-acao: #056370;
+  --color-acao-escuro: #033f47;
+
+  /* Barra de 76px do #site-header (.header-linha) + 1px do filete. */
+  --header-height: 77px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Base
+   -------------------------------------------------------------------------- */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Bloco de CSS que a documentação do Lenis manda incluir; as classes
+   .lenis* quem põe no <html> é o próprio Lenis. A regra do scroll-behavior
+   existe porque, com o Lenis ativo, é ele quem posiciona a rolagem quadro a
+   quadro: deixar a rolagem suave nativa do navegador ligada junto faz o
+   navegador animar suavemente até um alvo que já está se movendo. Medindo
+   um giro da roda aqui, a diferença não apareceu — mas as duas animações
+   concorrendo é um conflito real e sem motivo pra existir. O smooth vem da
+   seção de movimento reduzido, mais abaixo, onde serve de alternativa pra
+   quando o Lenis não roda; o !important é preciso porque aquela regra está
+   dentro de uma media query. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+/* A regra oficial do Lenis usa .lenis.lenis-smooth, mas a classe
+   lenis-smooth nem sempre está no <html> (na 1.3 o Lenis põe só "lenis"),
+   e aí o scroll-behavior: smooth do navegador continuava valendo. Basta o
+   Lenis estar ativo pra não querermos a rolagem suave nativa por cima. */
+html.lenis {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Trava de segurança: nada nesta página deveria alargar o viewport (é
+   sempre um elemento específico ultrapassando a largura da tela, nunca
+   intencional), mas sem isso um único elemento estourando a largura força
+   rolagem horizontal na página inteira — em vez de cortar só aquele
+   elemento, "empurra" tudo e some com conteúdo pra quem não pensa em
+   rolar pro lado, especialmente no celular. */
+/* clip, não hidden: hidden transforma html/body em contêiner de rolagem
+   e quebra qualquer position: sticky da página. */
+html,
+body {
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-paper);
+  color: var(--color-graphite-900);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  /* Impede que o navegador invente pesos que não foram carregados: se algo
+     pedir um peso inexistente, cai no mais próximo real em vez de gerar um
+     negrito sintético. */
+  font-synthesis: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+/* Texto de destaque que não é heading (citações, números, rótulos de botão).
+   font-variant-numeric: a Raleway usa algarismos old-style por padrão —
+   números como "3" e "9" descem abaixo da linha de base, do jeito que uma
+   letra minúscula desceria. Do lado de texto maiúsculo (ex.: os indicadores
+   da Trajetória, com .uppercase) isso lê como se o número estivesse em
+   caixa baixa. "lining-nums" força todo algarismo pra altura da caixa-alta,
+   em qualquer texto que use a fonte de destaque. */
+.font-display {
+  font-family: var(--font-display);
+  font-variant-numeric: lining-nums;
+}
+
+/* Parágrafo de abertura: Roboto Light em corpo maior. */
+.lead {
+  font-weight: 300;
+}
+
+.prose-institucional p + p {
+  margin-top: 1.1em;
+}
+
+/* Foco visível e consistente para navegação por teclado. */
+:focus-visible {
+  outline: 2px solid var(--color-gold-600);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link:not(:focus) {
+  position: absolute;
+  left: -9999px;
+}
+
+/* Âncoras não podem parar atrás do header fixo. */
+[id] {
+  scroll-margin-top: calc(var(--header-height) + 3px);
+}
+
+/* --------------------------------------------------------------------------
+   4. Header — mesmo desenho do site da Widen Club
+   Transparente sobre o hero; ao rolar mais de 24px ganha uma barra escura
+   (petróleo 950) desfocada — .header--rolado, ligada pelo JS. Fica sempre
+   visível. O menu é uma pílula de vidro escuro centralizada na barra, com
+   os itens em maiúsculas; abaixo de 1200px vira o botão redondo + painel.
+   A logo é a versão branca: fundo sempre escuro (vídeo ou barra). */
+#site-header {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  /* 55, não 50: precisa vencer o z-index: 51 do .solucoes-featured__portrait
+     (a foto que escapa do cartão). */
+  z-index: 55;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 0.4s ease,
+    backdrop-filter 0.4s ease,
+    border-color 0.4s ease;
+}
+
+#site-header.header--rolado,
+#site-header.header--aberto {
+  background-color: rgb(2 47 53 / 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom-color: rgb(255 255 255 / 0.08);
+}
+
+.header-linha {
+  position: relative;
+  max-width: 1360px;
+  height: 76px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-left: max(clamp(18px, 4vw, 40px), env(safe-area-inset-left));
+  padding-right: max(clamp(18px, 4vw, 40px), env(safe-area-inset-right));
+}
+
+.header-marca {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.header-marca img {
+  height: 34px;
+  width: auto;
+}
+
+/* Vidro escuro: branco a 8% com blur — sobre o vídeo e sobre a barra. */
+.header-pilula {
+  display: none;
+  align-items: center;
+  gap: 2px;
+  padding: 5px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.08);
+  border: 1px solid rgb(255 255 255 / 0.18);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: 0 8px 32px rgb(0 0 0 / 0.37);
+}
+
+/* O mesmo 1200px liga a pílula e desliga o botão do menu: se os dois
+   valores divergissem, sobraria uma faixa de tela sem navegação. */
+@media (min-width: 1200px) {
+  .header-pilula {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+  }
+}
+
+.header-pilula .nav-link {
+  padding: 10px 15px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgb(255 255 255 / 0.78);
+  white-space: nowrap;
+  transition:
+    color 0.25s ease,
+    background-color 0.25s ease,
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* O item "salta": a curva passa do alvo e volta. 3px cabem nos 5px de
+   padding da pílula, então nada vaza pela borda. Só com mouse: no toque
+   o :hover gruda depois do toque. */
+@media (hover: hover) and (pointer: fine) {
+  .header-pilula .nav-link:hover {
+    color: #fff;
+    background-color: rgb(255 255 255 / 0.12);
+    transform: translateY(-3px);
+  }
+}
+
+.header-pilula .nav-link[aria-current="true"] {
+  color: #fff;
+  background-color: rgb(255 255 255 / 0.12);
+}
+
+.header-acoes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-cta {
+  display: none;
+}
+
+@media (min-width: 560px) {
+  .header-cta {
+    display: block;
+  }
+}
+
+#site-header .cta-btn {
+  border-color: rgb(255 255 255 / 0.45);
+  box-shadow: 0 10px 28px -12px rgb(0 0 0 / 0.55);
+}
+
+.header-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border-radius: 999px;
+  color: rgb(255 255 255 / 0.9);
+  background: rgb(255 255 255 / 0.08);
+  border: 1px solid rgb(255 255 255 / 0.18);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: 0 8px 32px rgb(0 0 0 / 0.37);
+  cursor: pointer;
+}
+
+.header-toggle svg {
+  width: 19px;
+  height: 19px;
+}
+
+@media (min-width: 1200px) {
+  .header-toggle {
+    display: none;
+  }
+}
+
+/* Painel do menu mobile, solto 14px das bordas, logo abaixo da barra. */
+.header-mnav {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  top: 72px;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px;
+  border-radius: 20px;
+  /* Mais opaco que o da Widen Club (0.72): aqui o painel abre sobre o
+     título branco do hero e, translúcido, as letras atravessavam o menu. */
+  background: rgb(2 30 34 / 0.94);
+  border: 1px solid rgb(255 255 255 / 0.18);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  box-shadow: 0 8px 32px rgb(0 0 0 / 0.37);
+}
+
+.header-mnav:not(.hidden) {
+  display: flex;
+}
+
+.header-mnav a {
+  padding: 13px 15px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgb(255 255 255 / 0.72);
+}
+
+.header-mnav a:hover,
+.header-mnav a[aria-current="true"] {
+  background-color: rgb(255 255 255 / 0.06);
+  color: #fff;
+}
+
+.header-mnav .header-mnav__cta {
+  margin-top: 6px;
+  text-align: center;
+  font-weight: 800;
+  color: #fff;
+  background-color: var(--color-acao);
+}
+
+.header-mnav .header-mnav__cta:hover {
+  color: #fff;
+  background-color: var(--color-olive-600);
+}
+
+/* Sem backdrop-filter o fundo translúcido não tem o que desfocar: entra cor
+   quase sólida, senão o texto de trás atravessa o menu. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  #site-header.header--rolado,
+  #site-header.header--aberto,
+  .header-pilula,
+  .header-toggle {
+    background-color: rgb(2 47 53 / 0.95);
+  }
+
+  .header-mnav {
+    background-color: rgb(2 30 34 / 0.97);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Hero — foto sangrando, gradiente e ornamento
+   -------------------------------------------------------------------------- */
+/* Véu do hero em petróleo (#056370, a cor da marca) sobre o vídeo aéreo
+   levemente desfocado (.hero-video-fundo). Mais denso à esquerda, onde
+   fica o texto, abrindo para a direita, onde está a Gilmara; uma faixa no
+   topo segura a logo branca e o menu, e o pé escurece um pouco mais. */
+/* Véu leve só da esquerda pra direita: mais denso atrás do texto e
+   sumindo antes da Gilmara, pra foto aparecer mais. (Antes eram três
+   camadas, com 86% de petróleo à esquerda e faixas escuras em cima e
+   embaixo, e o hero ficava fechado.) */
+.hero-overlay {
+  background-image: linear-gradient(
+    90deg,
+    rgb(2 47 53 / 0.8) 0%,
+    rgb(2 47 53 / 0.62) 42%,
+    rgb(2 47 53 / 0.24) 72%,
+    rgb(2 47 53 / 0) 100%
+  );
+}
+
+/* Mesma ideia do .hero-overlay, mas pra seção do formulário final: o
+   conteúdo (headline + cartão) fica espalhado do topo ao fundo da seção,
+   não só grudado embaixo como no hero, então o véu é quase uniforme em vez
+   de um gradiente forte num sentido só. A cor é olive-900 (não graphite,
+   como no hero) pra manter a identidade da seção — o texto continua claro
+   por cima, então o contraste é o mesmo de antes, só que agora tem uma foto
+   por baixo do véu em vez de fundo sólido. */
+.form-section-overlay {
+  background-image: linear-gradient(
+    180deg,
+    rgb(3 63 71 / 0.88) 0%,
+    rgb(3 63 71 / 0.82) 100%
+  );
+}
+
+/* Título do hero em dois níveis: a frase principal grande e balanceada
+   (text-wrap: balance divide "Seu lote em / terra firme," em linhas de
+   largura parecida), e o nome do residencial embaixo, menor e mais leve.
+   Antes "Seu lote" era gigante e o resto da frase caía num corpo 3x menor,
+   quebrando em lugares aleatórios. A sombra é só um halo largo e fraco,
+   pra separar o texto dos trechos claros do vídeo sem parecer contorno. */
+.hero-headline {
+  --hero-headline-tam: clamp(2.75rem, 7vw, 5.25rem);
+  font-family: "Raleway Hero", var(--font-display);
+  display: flex;
+  flex-direction: column;
+  text-shadow: 0 2px 28px rgb(0 0 0 / 0.28);
+}
+
+.hero-headline__big {
+  max-width: 13ch;
+  font-size: var(--hero-headline-tam);
+  /* Só no hero: bold 800 em cima e light 300 embaixo, pra o título ter
+     impacto pelo contraste de peso (com 600/400 ficava apagado). */
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+/* "para construir o seu futuro" ocupa a mesma largura de "O lugar certo":
+   o tamanho é o da linha de cima vezes a razão entre as larguras das duas
+   frases na Raleway (5,91em na 800 / 11,71em na 300 = 0,505), arredondada
+   pra baixo pra nunca passar. As outras palavras do .palavra-giro mudam o
+   fim da linha: "lar" fica antes, "patrimônio" (a mais longa) passa ~17%
+   — a Gilmara foi afastada pra direita pra essa ponta não cair nas mãos
+   dela (ver .hero-gilmara), e no celular de 360px ela ainda cabe.
+   AO TROCAR AS PALAVRAS OU O PESO: medir de novo. */
+.hero-headline__rest {
+  margin-top: 0.85rem;
+  font-size: calc(var(--hero-headline-tam) * 0.5);
+  white-space: nowrap;
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  /* Segunda cor do título, um pouco mais clara que o .titulo-tom: o traço
+     fino do light sumia no verde-água #a6d5db sobre a foto. */
+  color: #d3ecef;
+}
+
+/* Palavra que vai trocando no fim do título ("futuro", "lar", "sonho"...).
+   As palavras ficam empilhadas na mesma célula do grid enquanto uma sai e
+   a outra entra, e o site.js anima a largura do contêiner até a da palavra
+   nova, pra o resto da linha não pular. Ela sai em branco pra se destacar
+   do verde-água claro do resto da frase. Leitor de tela lê só "futuro"
+   (span .sr-only no HTML); com movimento reduzido a palavra não troca. */
+.palavra-giro {
+  display: inline-grid;
+  justify-items: start;
+  color: var(--color-paper);
+  transition: width 450ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.palavra-giro__item {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+}
+
+/* Subtítulo: peso normal (o .lead, light, ficava fino demais sobre o
+   vídeo), contraste maior e linha limitada a ~60 caracteres. */
+.hero-subtitulo {
+  max-width: 34rem;
+  margin-top: 1.5rem;
+  font-size: clamp(1.0625rem, 1.3vw, 1.1875rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgb(255 255 255 / 0.82);
+  text-wrap: pretty;
+  text-shadow: 0 1px 16px rgb(0 0 0 / 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   6. CTA — pílula com preenchimento expansivo
+   Efeito portado do botão "InteractiveHoverButton" do design system da
+   GFlow: um ponto no canto esquerdo (::before) expande no hover até cobrir
+   o botão inteiro, trocando a cor de fundo; nas variantes com seta
+   (.cta-btn--icon) o texto desliza pra fora enquanto uma cópia do texto + a
+   seta desliza por baixo pra dentro. .cta-btn sozinho (sem .cta-btn--icon,
+   ex.: "Voltar") só tem o preenchimento — sem texto duplicado, porque não
+   há seta pra revelar. 100% CSS, sem JavaScript.
+   O ponto é pseudo-elemento (não span) de propósito: assim todo .cta-btn
+   ganha o efeito de graça, sem precisar de markup extra nos botões sem seta.
+   Variantes: padrão (dourado), .cta-btn--outline (fundos escuros), .cta-btn--dark
+   (fundos claros) e .cta-btn--block (ocupa a largura do contêiner).
+   -------------------------------------------------------------------------- */
+/* Portado 1:1 do .btn da GFlow, trocando só a paleta. De propósito NÃO tem
+   gradiente, brilho, pulo no hover nem encolher no clique: o botão de
+   referência é chapado e o único movimento é o preenchimento crescendo. A
+   altura sai do padding (como lá), não de um height fixo — as variantes
+   continuam com a mesma altura entre si porque todas têm a borda de 1px. */
+.cta-btn {
+  --cta-fill: var(--color-graphite-950);
+  --cta-hover-fg: var(--color-paper);
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--color-gold-500);
+  border-radius: 100px;
+  background-color: var(--color-gold-500);
+  /* Assimétrico: os 2.375rem à esquerda reservam o espaço em repouso do
+     ponto, igual ao botão de referência da GFlow. */
+  padding: 0.875rem 1.625rem 0.875rem 2.375rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--color-graphite-950);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.cta-btn:hover,
+.cta-btn:focus-visible {
+  color: var(--cta-hover-fg);
+}
+
+/* O ponto em repouso — vira o preenchimento que toma o botão inteiro no
+   hover. Portado 1:1 do .btn-dot da GFlow: a caixa cresce de 8×8 no canto
+   esquerdo até 100%×100%, e o scale(1.8) por cima garante que o excesso
+   estoure os cantos (o overflow: hidden da regra base corta seguindo a
+   curva da pílula).
+   O border-radius de 8px é o detalhe que faz o efeito: num quadrado de 8px
+   os raios se sobrepõem e o browser os reduz pra 4px, então em repouso é um
+   círculo perfeito; conforme a caixa cresce, os mesmos 8px viram cantos
+   discretos e a forma lê como um retângulo preenchendo o botão. Com 50% no
+   lugar disso a caixa vira uma elipse no meio do caminho — que era o que
+   estava errado aqui antes. */
+.cta-btn::before {
+  content: "";
+  position: absolute;
+  left: 1.125rem;
+  top: calc(50% - 0.25rem);
+  z-index: 1;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 8px;
+  background: var(--cta-fill);
+  transform: scale(1);
+  transition: left 0.3s ease, top 0.3s ease, width 0.3s ease, height 0.3s ease,
+    transform 0.3s ease;
+}
+
+.cta-btn:hover::before,
+.cta-btn:focus-visible::before {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(1.8);
+}
+
+/* O translateX(4px) em repouso vem da referência: é o respiro entre o ponto
+   e a primeira letra. */
+.cta-btn__text {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  transform: translateX(4px);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Só nos botões com seta o preenchimento passa POR CIMA do rótulo, como na
+   referência (lá o .btn-dot é o último elemento do botão; aqui é um
+   ::before, então quem reproduz isso é o z-index). Dá pra fazer porque o
+   rótulo some no hover e quem reexibe o texto é a camada duplicada. Sem
+   seta não existe duplicata, então o rótulo tem que continuar por cima — por
+   isso a regra é escopada em vez de valer pra todo .cta-btn__text. */
+.cta-btn--icon .cta-btn__text {
+  z-index: 0;
+}
+
+.cta-btn--icon:hover .cta-btn__text,
+.cta-btn--icon:focus-visible .cta-btn__text {
+  transform: translateX(3rem);
+  opacity: 0;
+}
+
+/* Camada com a cópia do texto + a seta: escondida à direita em repouso,
+   revelada no hover. aria-hidden porque o texto já foi lido em
+   .cta-btn__text — duplicar aqui é só efeito visual. */
+.cta-btn__hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: translateX(3rem);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.cta-btn__hover svg {
+  height: 1.125rem;
+  width: 1.125rem;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cta-btn--icon:hover .cta-btn__hover,
+.cta-btn--icon:focus-visible .cta-btn__hover {
+  transform: translateX(-0.25rem);
+  opacity: 1;
+}
+
+/* Variante para fundos escuros. A borda usa 45% de opacidade (e não 40%) para
+   ficar acima de 3:1 sobre o verde-floresta. O preenchimento no hover é
+   dourado, com texto grafite por cima — inverte o contraste do botão. */
+.cta-btn--outline {
+  --cta-fill: var(--color-gold-500);
+  --cta-hover-fg: var(--color-graphite-950);
+  background-color: transparent;
+  border-color: color-mix(in srgb, var(--color-paper) 45%, transparent);
+  color: var(--color-paper);
+}
+
+.cta-btn--outline:hover,
+.cta-btn--outline:focus-visible {
+  border-color: var(--color-gold-500);
+}
+
+/* Variante para fundos claros. Borda em 60%: com os 40% da referência daria
+   2,28:1 sobre o papel, abaixo do mínimo de 3:1. O preenchimento no hover é
+   oliva-900 (a mesma cor da borda), com texto claro por cima. */
+.cta-btn--dark {
+  --cta-fill: var(--color-olive-900);
+  --cta-hover-fg: var(--color-paper);
+  background-color: transparent;
+  border-color: color-mix(in srgb, var(--color-olive-900) 60%, transparent);
+  color: var(--color-graphite-950);
+}
+
+.cta-btn--dark:hover,
+.cta-btn--dark:focus-visible {
+  border-color: var(--color-olive-900);
+}
+
+/* Variante verde do WhatsApp — mesma mecânica das outras (preenchimento e
+   texto seguem herdando de .cta-btn, só a cor de fundo muda), com o verde
+   oficial #25D366 (mesmo tom do .whatsapp-fab) no lugar do dourado. Texto
+   continua graphite-950 (herdado da base) e passa de 4,5:1 sobre esse
+   verde. */
+.cta-btn--whatsapp {
+  background-color: #25d366;
+  border-color: #25d366;
+}
+
+/* Telas bem estreitas: reduz um pouco a fonte pra rótulos curtos não
+   brigarem por espaço à toa. Rótulos realmente longos ("Quero um plano
+   para Recuperação Judicial", 42 caracteres) não cabem numa linha só nem
+   reduzindo a fonte — sem max-width nem quebra, o botão simplesmente
+   ficava mais largo que a tela e estourava a página (era o que causava o
+   corte de conteúdo no celular). max-width trava o botão na largura do
+   próprio contêiner, e white-space: normal deixa o rótulo virar duas
+   linhas quando precisa. O botão não tem altura fixa (só padding), então
+   crescer pra duas linhas não quebra nada — inclusive a camada do hover
+   (.cta-btn__hover), que é width/height: 100% do botão e acompanha esse
+   crescimento. */
+@media (max-width: 420px) {
+  .cta-btn {
+    max-width: 100%;
+    font-size: 0.9375rem;
+    white-space: normal;
+    line-height: 1.3;
+  }
+}
+
+/* Botão que ocupa a largura do contêiner em qualquer tamanho de tela — usado
+   no envio de formulários dentro de um cartão (não no viewport inteiro, onde
+   ocupar 100% colidiria com o botão flutuante do WhatsApp). Definida depois
+   de .cta-btn no mesmo arquivo para vencer a disputa de especificidade com o
+   `width: fit-content` da regra base, sem depender da ordem de carregamento
+   entre este arquivo e o CSS gerado pelo Tailwind CDN. */
+.cta-btn--block {
+  width: 100%;
+}
+
+/* Botão mais comprido que o natural, mantendo a forma de pílula (só o
+   border-radius de 100px já garante isso, qualquer que seja a largura) —
+   usado quando o botão precisa se destacar mais sozinho, centralizado, em
+   vez de ocupar só o espaço do próprio texto. */
+.cta-btn--wide {
+  width: 100%;
+  max-width: 26rem;
+}
+
+/* --------------------------------------------------------------------------
+   7. Botão flutuante do WhatsApp
+   Redondo, com o ícone oficial da marca (assets/img/icons/whatsapp.webp) —
+   de propósito não segue a paleta da BS Agro: é um botão de canal externo
+   (como um "compartilhar no Facebook"), não um elemento de identidade da
+   marca. O ícone já vem com o verde oficial (#25D366) embutido na própria
+   imagem, então o botão não precisa de background-color própria — só o
+   recorte redondo (overflow: hidden) como reforço, já que a imagem em si já
+   é um círculo com cantos transparentes.
+   -------------------------------------------------------------------------- */
+.whatsapp-fab {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 50;
+  display: flex;
+  height: 56px;
+  width: 56px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 9999px;
+  text-decoration: none;
+  box-shadow: 0 12px 26px -14px rgb(16 19 26 / 0.65);
+  transition: transform 300ms ease;
+}
+
+.whatsapp-fab:hover {
+  transform: translateY(-2px);
+}
+
+.whatsapp-fab__icon {
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: filter 300ms ease;
+}
+
+.whatsapp-fab:hover .whatsapp-fab__icon {
+  filter: brightness(0.92);
+}
+
+/* --------------------------------------------------------------------------
+   8. Formulário — campos preenchidos (pill), em versão clara e escura
+   -------------------------------------------------------------------------- */
+.form-legend {
+  margin-bottom: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-olive-700);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-graphite-800);
+}
+
+.form-optional {
+  font-weight: 400;
+  color: var(--color-graphite-600);
+}
+
+/* Campo preenchido em vez de sublinhado: fundo neutro leve (preto a 6% de
+   opacidade lê como cinza claro sobre o cartão de vidro claro) e cantos bem
+   arredondados, no padrão pedido pelo cliente. */
+.form-input {
+  margin-top: 0;
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background-color: rgb(23 27 36 / 0.08);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-sans);
+  /* Não reduzir abaixo de 16px: no Safari do iOS, um campo de texto/e-mail/
+     telefone com font-size menor que 16px faz a página inteira dar zoom ao
+     focar o campo. */
+  font-size: 1rem;
+  color: var(--color-graphite-900);
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.form-input::placeholder {
+  color: var(--color-graphite-500);
+}
+
+.form-input:focus {
+  border-color: var(--color-olive-700);
+  background-color: rgb(23 27 36 / 0.03);
+  outline: none;
+}
+
+.form-input:focus-visible {
+  outline: 2px solid var(--color-gold-600);
+  outline-offset: 2px;
+}
+
+.field-error {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #b91c1c;
+}
+
+.field-error:empty {
+  display: none;
+}
+
+.form-status {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+}
+
+/* Transição simples de "aparecer" entre as duas etapas do formulário (sem
+   flip de cartão, a pedido do cliente) — a etapa entra com um leve
+   deslizar + fade em vez de só trocar o atributo `hidden` de um jeito
+   abrupto. O JS remove `hidden` e alterna `.form-step--visivel` num
+   próximo frame para o navegador animar a transição. */
+.form-step {
+  transition: opacity 320ms ease, transform 320ms ease;
+}
+
+/* Precisa de mais especificidade que a classe `flex` do Tailwind: sem isso,
+   `display:flex` (CSS de autor) vence o `[hidden]{display:none}` do
+   navegador (CSS de user-agent), que perde em qualquer empate de
+   especificidade — e a etapa escondida continua ocupando altura no layout
+   mesmo com o atributo `hidden` presente. */
+.form-step[hidden] {
+  display: none;
+}
+
+.form-step:not(.form-step--visivel) {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.form-step--visivel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.form-status[hidden] {
+  display: none;
+}
+
+.form-status--info {
+  background-color: var(--color-olive-100);
+  color: var(--color-olive-800);
+}
+
+.form-status--ok {
+  background-color: var(--color-olive-100);
+  color: var(--color-olive-800);
+}
+
+.form-status--erro {
+  background-color: #fef2f2;
+  color: #991b1b;
+}
+
+/* Versão sobre fundo escuro */
+[data-tone="dark"] .form-legend {
+  color: var(--color-gold-300);
+}
+
+[data-tone="dark"] .form-label {
+  color: var(--color-paper);
+}
+
+[data-tone="dark"] .form-optional {
+  color: color-mix(in srgb, var(--color-paper) 70%, transparent);
+}
+
+[data-tone="dark"] .form-input {
+  background-color: rgb(255 255 255 / 0.08);
+  color: var(--color-paper);
+}
+
+[data-tone="dark"] .form-input::placeholder {
+  color: color-mix(in srgb, var(--color-paper) 55%, transparent);
+}
+
+[data-tone="dark"] .form-input:focus {
+  border-color: var(--color-gold-400);
+  background-color: rgb(255 255 255 / 0.05);
+}
+
+/* O menu suspenso do select é desenhado pelo sistema, sempre sobre fundo
+   claro, então a opção precisa de texto escuro mesmo na versão escura. */
+[data-tone="dark"] .form-input option {
+  color: var(--color-graphite-900);
+}
+
+[data-tone="dark"] .field-error {
+  color: #fca5a5;
+}
+
+/* --------------------------------------------------------------------------
+   9. Cards e mídia
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   9a. Cards de soluções — hover reveal
+   Grade de cartões com imagem de fundo: ao passar o mouse pelo grupo, todos
+   esmaecem e desfocam levemente; o cartão sob o cursor (ou com foco de
+   teclado) ganha destaque, com escala maior e nitidez total. A regra do
+   cartão individual vem depois da regra do grupo no arquivo — mesma
+   especificidade, então quem vem por último no CSS ganha, sem precisar de
+   !important. tabindex="0" no HTML garante que dá pra alcançar o destaque
+   sem mouse, pelo teclado (:focus-visible). */
+/* Uma coluna no celular. Em duas colunas o cartão ficava com ~148px de
+   largura e as descrições (a do CPR tem 230 caracteres) passavam de 460px de
+   altura dentro de um cartão de 320px: como o texto é ancorado embaixo e o
+   cartão tem overflow:hidden, o excesso era cortado POR CIMA e o título
+   sumia — o cartão do CPR aparecia sem dizer a que linha se referia. Duas
+   colunas voltam a partir de 640px e as quatro ficam para 1024px, largura em
+   que a descrição mais longa cabe de novo. */
+.solucoes-cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .solucoes-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .solucoes-cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* min-height no lugar de height: com altura fixa, texto maior que o cartão
+   era cortado em silêncio (foi o que aconteceu com os títulos no celular).
+   Assim o cartão cresce quando precisa, em vez de esconder conteúdo. As
+   larguras acima já fazem o texto caber, então na prática ele fica nos 20rem
+   de sempre — isto é a rede de proteção para quando o texto mudar. O
+   justify-content mantém o conteúdo ancorado embaixo, como era com o
+   position:absolute. */
+.solucoes-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 20rem;
+  overflow: hidden;
+  border-radius: 20px;
+  background-color: var(--color-graphite-900);
+  box-shadow: var(--shadow-soft, 0 20px 45px -20px rgb(23 27 36 / 0.25));
+  transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
+}
+
+.solucoes-cards:hover .solucoes-card {
+  transform: scale(0.97);
+  opacity: 0.65;
+  filter: blur(2px);
+}
+
+.solucoes-cards .solucoes-card:hover,
+.solucoes-cards .solucoes-card:focus-visible {
+  transform: scale(1.04);
+  opacity: 1;
+  filter: none;
+  z-index: 2;
+}
+
+.solucoes-card:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 3px;
+}
+
+.solucoes-card__img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Gradiente por baixo do texto: mais opaco perto do rodapé do cartão pra
+   garantir leitura mesmo na pior combinação de cores da imagem, igual ao
+   raciocínio de contraste usado no resto do site. */
+.solucoes-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(8 10 13 / 0.85) 0%, rgb(8 10 13 / 0.35) 48%, transparent 78%);
+}
+
+/* Fora do position:absolute: agora o texto conta na altura do cartão, que é
+   o que permite o cartão crescer em vez de cortá-lo. Continua sobre o
+   gradiente porque vem depois dele no HTML. */
+.solucoes-card__content {
+  position: relative;
+  padding: 1.25rem;
+  color: var(--color-paper);
+}
+
+.solucoes-card__eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-gold-300);
+}
+
+.solucoes-card__title {
+  margin-top: 0.25rem;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.solucoes-card__desc {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: rgb(255 255 255 / 0.75);
+}
+
+/* 9a-bis. Cards de "Atuação especializada" — mesmo hover-reveal dos cards de
+   soluções acima: ao passar o mouse por um, o outro esmaece e desfoca
+   levemente, e o cartão sob o cursor (ou com foco de teclado num link de
+   dentro dele) ganha destaque com escala maior e nitidez total. */
+.atuacao-card {
+  transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
+}
+
+.atuacao-cards:hover .atuacao-card {
+  transform: scale(0.97);
+  opacity: 0.65;
+  filter: blur(2px);
+}
+
+.atuacao-cards .atuacao-card:hover,
+.atuacao-cards .atuacao-card:focus-within {
+  transform: scale(1.02);
+  opacity: 1;
+  filter: none;
+  z-index: 2;
+}
+
+/* CTA dos cartões de "Atuação especializada": largura do cartão e quebra de
+   linha quando precisa.
+   Os três cartões são estreitos — em lg:grid-cols-3 sobram ~341px de área
+   útil por cartão a 1280px de viewport, e ~245px a 1024px. Os rótulos aqui
+   são frases longas: medido na Raleway 600/16px (a fonte e o corpo do
+   .cta-btn), "Quero um plano para Recuperação Judicial" dá 328px de texto,
+   392px com o padding da pílula. Como .cta-btn é white-space: nowrap e
+   width: fit-content, o botão ficaria maior que o cartão e seria cortado
+   pelo overflow: hidden dele.
+   Escopado em .atuacao-card de propósito: nos outros botões do site o
+   nowrap continua valendo, porque lá eles vivem em caixas largas e a pílula
+   justa é a forma certa. O line-height sobe de 1 para 1.25 porque o valor
+   base foi pensado para uma linha só. O padding na camada de hover impede
+   que o texto duplicado encoste na borda da pílula depois da quebra.
+   Botão ocupando a largura do cartão é também o formato do mockup enviado
+   pelo cliente. */
+.atuacao-card .cta-btn {
+  width: 100%;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.25;
+}
+
+.atuacao-card .cta-btn__hover {
+  padding-inline: 1.5rem;
+}
+
+/* Cartão grande em destaque ("Solução mais procurada"): foto de fundo com um
+   véu verde-oliva por cima (mesmo tom do bg-olive-900 que existia antes, só
+   que agora sobre a imagem) pra manter o texto legível em qualquer ponto da
+   foto. O conteúdo (texto, ícone, botão) fica em .solucoes-featured__content,
+   que tem z-index próprio pra nunca ficar por baixo da imagem. */
+.solucoes-featured {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 20px;
+  color: var(--color-paper);
+  background-color: var(--color-olive-900);
+}
+
+.solucoes-featured__img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.solucoes-featured__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    rgb(3 63 71 / 0.94) 0%,
+    rgb(3 63 71 / 0.88) 45%,
+    rgb(3 63 71 / 0.7) 100%
+  );
+}
+
+.solucoes-featured__content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Nome e cargo do Caio encostados no pé do cartão em destaque, à esquerda do
+   recorte dele. O right é maior que a largura que o retrato alcança na mesma
+   faixa de tela (altura do clamp × ~0,81, mais o right de 1.25rem dele), pra
+   legenda e figura nunca se tocarem. z-index 2 só pra passar à frente do véu
+   e da foto de fundo — o retrato, que é irmão do cartão, continua bem acima
+   (z-index 51). Só de lg pra cima (classe no HTML): abaixo disso o cartão
+   estreita, o retrato encolhe e a legenda cairia por cima do texto. */
+.solucoes-featured__assinatura {
+  position: absolute;
+  z-index: 2;
+  bottom: 2rem;
+  /* O "right" acompanha o retrato em vez de ser um valor fixo (eram 22.5rem).
+     Com valor fixo a distância até o corpo dela mudava muito conforme a tela:
+     o retrato encolhe por clamp(19rem, 35vw, 29rem), então a 1024px a
+     assinatura ficava quase 100px longe dela e acima de 1333px, ~72px.
+     A conta reproduz a posição da silhueta:
+       clamp(...1.5vw...)  = o "right" do próprio retrato
+       altura x 0,578      = onde começa o corpo dela, contado da direita.
+                             0,578 = 0,661 (proporção 640x968 do arquivo)
+                             x 0,874, porque na altura da assinatura a
+                             silhueta começa 12,6% para dentro da borda
+                             esquerda da imagem — medido no canal alpha do
+                             WebP, é a faixa do quadril, mais estreita que os
+                             ombros.
+       + 1.5rem            = o respiro que sobra entre o texto e ela.
+     AO TROCAR O RECORTE: refazer as duas constantes, senão a assinatura
+     descola do corpo ou encosta nele. */
+  right: calc(
+    clamp(0rem, 1.5vw, 1.25rem) + clamp(19rem, 35vw, 29rem) * 0.578 + 1.5rem
+  );
+}
+
+/* Retrato que escapa do cartão por cima, encostado no canto inferior direito.
+   Sibling do .solucoes-featured (não filho) de propósito: o cartão tem
+   overflow: hidden para as bordas arredondadas, e um filho não conseguiria
+   estourar esse recorte. pointer-events: none porque é puramente decorativo:
+   sem isso, passar o mouse sobre a foto (que visualmente fica sobre o
+   cartão) bloquearia o :hover dos elementos por baixo. */
+.solucoes-featured__portrait {
+  position: absolute;
+  right: clamp(0rem, 1.5vw, 1.25rem);
+  bottom: 0;
+  /* Garante que o retrato fique por cima do .solucoes-featured (o cartão
+     escuro logo antes dele no HTML). NÃO é mais maior que o #site-header
+     de propósito — o header usa z-index: 55 justamente pra vencer esse 51
+     e nunca ficar escondido atrás do retrato ao reaparecer na rolagem
+     (era o contrário antes; ver #site-header no CSS). */
+  z-index: 51;
+  height: clamp(20rem, 38vw, 31rem);
+  width: auto;
+  pointer-events: none;
+}
+
+/* Abaixo de lg (1024px) o retrato some. O cartão estreita junto com a tela,
+   mas a figura acompanha a viewport por clamp e, a partir de ~1023px, ela
+   avançava por cima do título e do corpo do texto (quem ficava escondido era
+   o texto: o retrato tem z-index 51). É o mesmo corte que a
+   .solucoes-featured__assinatura já faz pelo `hidden lg:block` no HTML, e
+   pela mesma razão. De lg pra cima os dois convivem porque o
+   .solucoes-featured__content reserva a faixa da direita — ver logo abaixo. */
+@media (max-width: 1023px) {
+  .solucoes-featured__portrait {
+    display: none;
+  }
+}
+
+/* Variante do retrato no cartão de #solucoes depois da troca da foto: o
+   recorte da Évellyn é de meio corpo (termina logo abaixo do cinto), então,
+   na altura antiga — pensada pra foto de corpo inteiro das duas sócias — ele
+   mal passava da borda de cima do cartão. Um pouco mais alto resolve.
+   A altura é a mesma que o recorte do Caio usava antes dele, de propósito:
+   o arquivo da Évellyn foi recortado no mesmo enquadramento (chapéu até a
+   cintura, 0,66 de proporção contra os 0,70 dele), então o retrato escapa
+   da borda de cima na mesma medida de antes e a largura resultante
+   (~19rem) continua caindo à direita do texto, que está preso em max-w-3xl,
+   e à direita da .solucoes-featured__assinatura, que fica em right: 22.5rem.
+   AO TROCAR por um recorte de proporção diferente, conferir os dois: um
+   recorte mais largo que ~21rem encosta na assinatura. */
+.solucoes-featured__portrait--evellyn {
+  height: clamp(19rem, 35vw, 29rem);
+}
+
+/* Faixa reservada à direita do texto, do tamanho do retrato que escapa por
+   cima do cartão. Sem ela o conteúdo vai até o max-w-3xl que o HTML define e
+   passa POR BAIXO da figura. A conta é a mesma nos dois cartões:
+
+     "right" do próprio retrato + largura que ele alcança + respiro
+
+   onde a largura = altura (o clamp de cada variante) × a proporção do arquivo
+   (largura ÷ altura em px). Reserva a caixa inteira da imagem, não a silhueta
+   — é o que garante que o texto não encoste nela em largura nenhuma.
+   Só de lg pra cima: abaixo disso o retrato está escondido e o texto usa o
+   cartão inteiro.
+   AO TROCAR UM RECORTE: refazer a proporção, senão a faixa sobra ou falta. */
+@media (min-width: 1024px) {
+  /* 0,661 = 640 ÷ 968 de evellyn-brandao-ceo-fundadora-recorte.webp */
+  .solucoes-featured__content--evellyn {
+    padding-right: calc(
+      clamp(0rem, 1.5vw, 1.25rem) + clamp(19rem, 35vw, 29rem) * 0.661 + 2rem
+    );
+  }
+
+  /* Aqui o retrato acompanha a altura do cartão (ver --sobre abaixo), então a
+     faixa não sai de um clamp: o "right" do retrato (mesmo clamp de
+     .solucoes-featured__portrait--sobre) mais 21rem, que cobrem a largura que
+     ele alcança nos cartões de lg em diante (~0,618 × altura, de
+     gilmara-cardoso-tusthler.webp 700 ÷ 1132) e o respiro. */
+  .solucoes-featured__content--sobre {
+    padding-right: calc(clamp(0rem, 6vw - 3.5rem, 3rem) + 21rem);
+  }
+}
+
+/* Variante do retrato no cartão de "Quem cuida do seu investimento" (#sobre),
+   com a Gilmara. A altura é a do cartão + 4rem em vez de um clamp por vw: com
+   clamp, em telas largas a cabeça invadia a seção de cima e perto de 1024px
+   mal passava da borda. Assim ela escapa sempre os mesmos 4rem por cima, e o
+   pé continua rente ao fundo do cartão (bottom: 0). O wrapper .relative em
+   volta do cartão tem a altura dele, por isso o 100% funciona. Continua
+   escondido abaixo de 1024px pela regra de .solucoes-featured__portrait. */
+.solucoes-featured__portrait--sobre {
+  height: calc(100% + 4rem);
+  /* Afastada da borda direita do cartão, pra ela ficar mais pra dentro da
+     composição em vez de colada no canto. Cresce com a tela (~0 em 1024px,
+     3rem a partir de ~1500px): em 1024px um afastamento fixo apertava o texto,
+     o nome quebrava em duas linhas e o cabelo encostava nele. */
+  right: clamp(0rem, 6vw - 3.5rem, 3rem);
+}
+
+/* --------------------------------------------------------------------------
+   9d. Divisor de seção (linha + "+")
+   Marca a transição entre uma seção e a próxima: um filete de 1px com um "+"
+   centralizado por cima. currentColor em vez de uma cor fixa: herda a cor de
+   texto de cada seção (escura nas seções claras, .text-paper nas escuras,
+   como a CTA final), então funciona em qualquer fundo sem precisar de uma
+   variante por seção. */
+.section-divider {
+  position: relative;
+  height: 1px;
+  background-color: color-mix(in srgb, currentColor 14%, transparent);
+}
+
+.section-divider__plus {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  line-height: 1;
+  color: color-mix(in srgb, currentColor 55%, transparent);
+}
+
+/* --------------------------------------------------------------------------
+   9b. Glassmorphism
+   Usado com moderação, só onde um cartão flutua sobre um fundo com gradiente
+   próprio (nunca sobre a foto do hero, onde o contraste real não dá pra
+   garantir com o site parado numa posição qualquer de rolagem). Cada seção
+   que usa vidro define o gradiente que fica por baixo (.bg-mesh-*).
+   -------------------------------------------------------------------------- */
+/* Os dois círculos ficam perto do centro vertical (35%/65%), não perto do
+   topo/fundo — uma seção bg-mesh-light quase sempre encosta em cima ou
+   embaixo numa seção bg-paper lisa (sem gradiente nenhum), e um círculo
+   perto da borda concentra o tom ali, criando uma linha de contraste bem
+   visível exatamente na emenda entre as duas — lia como defeito de
+   renderização, não como gradiente de propósito. */
+.bg-mesh-light {
+  background-color: var(--color-paper);
+  background-image: radial-gradient(560px circle at 15% 35%, rgb(212 175 55 / 0.10), transparent 60%),
+    radial-gradient(620px circle at 85% 65%, rgb(26 98 71 / 0.10), transparent 60%);
+}
+
+/* Fatia verde-escura no meio da página (#como-funciona). Base olive-800,
+   entre o olive-900 do hero/CTA e as seções claras: o miolo ganha um bloco
+   de respiro em vez de cinco seções claras seguidas. Os dois círculos
+   seguem a mesma regra do .bg-mesh-light (35%/65%, longe das bordas, para
+   não criar uma linha de contraste na emenda com a seção vizinha). */
+.bg-mesh-olive {
+  background-color: var(--color-olive-800);
+  background-image: radial-gradient(560px circle at 15% 35%, rgb(212 175 55 / 0.14), transparent 60%),
+    radial-gradient(620px circle at 85% 65%, rgb(142 202 176 / 0.12), transparent 60%);
+}
+
+.bg-mesh-dark {
+  background-color: var(--color-graphite-950);
+  background-image: radial-gradient(600px circle at 8% 12%, rgb(212 175 55 / 0.12), transparent 60%),
+    radial-gradient(680px circle at 92% 88%, rgb(35 122 88 / 0.16), transparent 60%);
+}
+
+.glass-card {
+  position: relative;
+  border-radius: 28px;
+  border: 1px solid rgb(255 255 255 / 0.6);
+  background-color: rgb(255 255 255 / 0.55);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  box-shadow: var(--shadow-soft, 0 20px 45px -20px rgb(23 27 36 / 0.25));
+}
+
+.glass-card--dark {
+  border-radius: 24px;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  background-color: rgb(255 255 255 / 0.06);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+}
+
+/* Variante para o cartão do hero: fica direto sobre a foto, não sobre um
+   gradiente controlado como as outras duas. A foto muda de brilho conforme o
+   recorte e a posição do cartão, então a opacidade continua bem mais alta que
+   .glass-card (85%, não 55%) para garantir leitura em qualquer ponto — subir
+   de 80% para 85% só aumenta a margem de contraste do texto escuro
+   (graphite-900) e do texto claro (graphite-600, ex.: "(opcional)") em cima
+   do mínimo de 4,5:1. O saturate caiu de 180% para 130% para o vidro não
+   puxar o tom dourado/oliva da foto por baixo — fica um branco mais limpo e
+   neutro em vez de amarelado. Blur maior (36px) suaviza ainda mais o que
+   atravessa, mantendo a leitura de vidro fosco sem ficar um retângulo branco
+   sólido. O brilho no topo (::before) é o toque clássico de glassmorphism,
+   imitando luz refletindo na borda superior do vidro. */
+.glass-card--hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  border: 1px solid rgb(255 255 255 / 0.75);
+  background-color: rgb(255 255 255 / 0.85);
+  backdrop-filter: blur(36px) saturate(130%);
+  -webkit-backdrop-filter: blur(36px) saturate(130%);
+  box-shadow: 0 30px 60px -20px rgb(16 19 26 / 0.4);
+}
+
+.glass-card--hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgb(255 255 255 / 0.65) 0%, rgb(255 255 255 / 0) 36%);
+  pointer-events: none;
+}
+
+/* Sem suporte a backdrop-filter: cai para um fundo quase opaco em vez de vidro
+   invisível. O contraste do texto já foi verificado contra este fallback. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-card {
+    background-color: rgb(255 255 255 / 0.92);
+  }
+
+  .glass-card--dark {
+    background-color: rgb(255 255 255 / 0.1);
+  }
+
+  .glass-card--hero {
+    background-color: rgb(255 255 255 / 0.97);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   9c. Cartões do time — faixa de nome e cargo em vidro
+   Mesmo vidro da antiga pílula do cabeçalho (removida da seção 4): blur de
+   26px, mesma saturação de 190%, mesmo realce especular na diagonal no
+   ::before e o mesmo filete de luz interno no topo.
+
+   O que muda é a opacidade do branco, e pela mesma razão que levou o
+   .glass-card--hero a 85%: a pílula do cabeçalho (0.5 → 0.22 → 0.32) flutua
+   sobre uma foto só, escolhida e enquadrada pra isso; esta faixa cai sobre vários
+   retratos diferentes, e o trecho que fica atrás dela — o tronco da
+   pessoa — pode ser uma camisa branca num cartão e um fundo quase preto no
+   outro. Com a base em 0.80 no ponto mais translúcido, o pior caso (faixa
+   sobre preto puro) deixa o nome em graphite-900 a ~13:1 e o cargo em
+   graphite-700 a ~7:1 — folga confortável sobre o mínimo AA de 4,5:1.
+
+   A faixa não tem border-radius próprio: quem arredonda os cantos de baixo é
+   o overflow-hidden do <figure>, então ela acompanha o recorte do cartão sem
+   precisar repetir o valor. -------------------------------------------------- */
+.time-legenda {
+  position: relative;
+  isolation: isolate;
+  border-top: 1px solid rgb(255 255 255 / 0.4);
+  background: linear-gradient(
+    165deg,
+    rgb(255 255 255 / 0.88) 0%,
+    rgb(255 255 255 / 0.80) 45%,
+    rgb(255 255 255 / 0.85) 100%
+  );
+  backdrop-filter: blur(26px) saturate(190%);
+  -webkit-backdrop-filter: blur(26px) saturate(190%);
+  box-shadow:
+    inset 0 1px 1px rgb(255 255 255 / 0.85),
+    inset 0 -1px 1px rgb(255 255 255 / 0.2);
+}
+
+.time-legenda::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    115deg,
+    rgb(255 255 255 / 0.55) 0%,
+    rgb(255 255 255 / 0) 30%,
+    rgb(255 255 255 / 0) 70%,
+    rgb(255 255 255 / 0.3) 100%
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Sem backdrop-filter o vidro não existe: a faixa vira um fundo quase opaco,
+   como as outras superfícies de vidro do site. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .time-legenda {
+    background: rgb(255 255 255 / 0.95);
+  }
+
+  .time-legenda::before {
+    content: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   9g. Time — faixa de retratos em loop contínuo
+   Mesmo mecanismo do carrossel de parceiros (9b, logo abaixo): a trilha
+   duplica a lista de pessoas uma vez e anima até -50%, então o quadro em que
+   o loop reinicia é idêntico ao anterior e não existe "salto". A duplicata
+   fica com aria-hidden no HTML, para o leitor de tela ler os oito nomes uma
+   vez só.
+
+   Não é o carrossel de Diferenciais (scroll-snap + setas + JS) porque aqui o
+   pedido é que passe sozinho: um marquee em CSS puro anda sem nenhum
+   JavaScript, e a regra global de prefers-reduced-motion (seção 11) já zera a
+   duração de toda animação do site, então ele para sozinho para quem pede
+   menos movimento — sem precisar de regra própria.
+
+   O respiro entre os cartões é margin-right em cada item, e não gap na
+   trilha: o gap não se aplica na emenda entre as duas metades, e ali o vão
+   sumiria uma vez a cada volta. -------------------------------------------- */
+.time-marquee {
+  overflow: hidden;
+}
+
+.time-marquee__track {
+  display: flex;
+  width: max-content;
+  /* A duração acompanha o número de cartões para manter a velocidade em
+     pixels por segundo praticamente igual: eram 52s com sete cartões, 45s
+     quando a faixa caiu para seis, e voltou a 52s com a entrada da Bruna
+     Arantes (sete de novo). AO ADICIONAR OU REMOVER alguém da faixa,
+     recalcular na mesma proporção (~7,5s por cartão). */
+  animation: time-marquee-scroll 52s linear infinite;
+}
+
+/* Pausa no hover do mouse e no foco por teclado. Diferente do carrossel de
+   parceiros, que só pausa no foco: ali os itens são logos, aqui são pessoas
+   com nome e cargo pra ler, e sem parar o cartão que o visitante quer olhar
+   escorrega pra fora do cursor. O foco continua valendo sozinho, para quem
+   navega por teclado (WCAG 2.2.2). */
+.time-marquee:hover .time-marquee__track,
+.time-marquee:focus-within .time-marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes time-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.time-marquee__item {
+  position: relative;
+  flex: none;
+  width: 208px;
+  margin-right: 1rem;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid rgb(23 27 36 / 0.1);
+  background-color: var(--color-olive-100);
+}
+
+@media (min-width: 640px) {
+  .time-marquee__item {
+    width: 248px;
+    margin-right: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .time-marquee__item {
+    width: 288px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   9b. Carrossel de parceiros — loop infinito
+   A trilha duplica a lista de logos uma vez (ver `partners-marquee--duplicada`
+   no HTML) e anima -50%: como a segunda metade é idêntica à primeira, o ponto
+   em que o loop reinicia é visualmente idêntico ao quadro anterior, dando a
+   impressão de um scroll contínuo sem "salto". A máscara nas bordas some com
+   o corte abrupto onde os logos entram/saem da view. `prefers-reduced-motion`
+   já zera a duração de toda animação no site (seção 11), então a trilha para
+   sozinha sem precisar de uma regra própria aqui. -------------------------- */
+.partners-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.partners-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: partners-marquee-scroll 56s linear infinite;
+}
+
+/* Só pausa no foco por teclado (não no hover do mouse, a pedido do cliente) —
+   mantém um jeito de pausar pra quem navega via teclado (WCAG 2.2.2). */
+.partners-marquee:focus-within .partners-marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes partners-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.partners-marquee__item {
+  display: flex;
+  height: 88px;
+  width: 168px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 1.5rem;
+}
+
+.partners-marquee__item img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition: opacity 250ms ease, filter 250ms ease;
+}
+
+.partners-marquee__item:hover img,
+.partners-marquee__item:focus-within img {
+  filter: none;
+  opacity: 1;
+}
+
+/* Marcas cujo arquivo só existe em branco (pensado para fundo escuro): o
+   card ganha um fundo escuro próprio em vez de tentar o mesmo tratamento
+   cinza das outras, que ficaria invisível sobre o `bg-mesh-light` da seção. */
+.partners-marquee__item--dark {
+  border-radius: 16px;
+  background-color: var(--color-graphite-950);
+}
+
+.partners-marquee__item--dark img {
+  opacity: 0.75;
+}
+
+.partners-marquee__item--dark:hover img,
+.partners-marquee__item--dark:focus-within img {
+  opacity: 1;
+}
+
+/* Alguns arquivos de logo (Porto Seguro Bank, CashMe, MetLife) têm mais
+   respiro/padding dentro do próprio PNG, então ficam visivelmente menores
+   que os outros mesmo com a caixa do item do mesmo tamanho. Escala só a
+   imagem, centralizada, sem mexer no tamanho da caixa nem no espaçamento
+   da trilha. */
+.partners-marquee__item--lg img {
+  transform: scale(1.6);
+}
+
+/* --------------------------------------------------------------------------
+   9e. Carrossel de diferenciais — com setas e barra de progresso
+   Estrutura pedida pelo cliente a partir de uma referência (site da Cresol):
+   título e legenda centralizados, cartões em caixas com borda (não mais só
+   um filete no topo) e navegação manual por setas, com uma barra fina
+   indicando o progresso da rolagem.
+   Diferente dos carrosséis de loop infinito acima (parceiros, depoimentos),
+   este é rolagem nativa do navegador com scroll-snap — sem transform, sem
+   @keyframes, sem duplicar cartão nenhum. As setas chamam scrollTo() no
+   JS (ver "Carrossel de diferenciais" no <script> do fim da página) direto
+   pra ponta (esquerda = primeiro cartão, direita = último), e o mesmo JS
+   recalcula a barra de progresso a cada evento de scroll.
+   As setas ficam nas pontas da barra de progresso, embaixo do carrossel
+   (ver .diferenciais-carousel__controles), e não flutuando nas laterais da
+   faixa de cartões. Ali elas já foram tentadas de três jeitos — grudadas na
+   borda, num corredor de 3.5rem e num de 4.5rem — e em todos parecia que
+   estavam por cima do cartão: o scroll-snap sempre trava ALGUM cartão flush
+   contra a borda do viewport (é o que "scroll-snap-align: start" faz), e
+   cartão, corredor e seta têm todos o mesmo fundo (--color-paper), então não
+   existe distância nem contraste que separe as duas coisas de forma
+   confiável. Embaixo o problema simplesmente não acontece, em nenhuma
+   posição do scroll — e as setas passam a servir também no celular, onde o
+   corredor lateral não cabia e elas ficavam escondidas.
+   O número de cartões por "página" nunca é fixo em JS: cada cartão ocupa uma
+   fração da largura do track (33% no desktop, 50% no tablet, 85% no
+   celular, deixando o próximo cartão espiar na borda), então quantos cabem
+   por vez já é decidido pelo CSS — inclusive se algum dia entrar um sétimo
+   diferencial, o carrossel continua funcionando sem tocar no JS. */
+
+.diferenciais-carousel__track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 1px;
+  /* Esconde a barra de rolagem nativa nos navegadores que suportam — a
+     navegação visível é a barra de progresso + as setas abaixo, não a
+     scrollbar do sistema. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.diferenciais-carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+.diferenciais-carousel__card {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  /* 85%: deixa o próximo cartão espiando na borda direita — a pista de que
+     tem mais conteúdo pra rolar, o mesmo papel que as setas cumprem a
+     partir de 640px (aqui embaixo desse breakpoint elas ficam escondidas,
+     ver .diferenciais-carousel__nav). */
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--color-paper) 20%, transparent);
+  background-color: color-mix(in srgb, var(--color-paper) 6%, transparent);
+  padding: 1.5rem;
+  transition: transform 300ms ease;
+}
+
+/* Mesmo salto dos cartões de "Como funciona" (transition-transform
+   duration-300 hover:-translate-y-1): só o transform, 4px, 300ms — sem
+   mudar borda nem fundo. Preso em @media (hover: hover) porque no celular
+   o carrossel é arrastado com o dedo: sem essa trava, o toque do swipe
+   deixa o cartão travado no estado levantado até o próximo toque em outro
+   lugar. `transform` não ocupa espaço no layout, então o salto não mexe no
+   scroll-snap da pista. A regra global de prefers-reduced-motion (seção
+   11) zera a duração da transição; o estado final continua igual. */
+@media (hover: hover) {
+  .diferenciais-carousel__card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@media (min-width: 640px) {
+  .diferenciais-carousel__card {
+    width: calc(50% - 0.75rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .diferenciais-carousel__track {
+    gap: 2rem;
+  }
+
+  .diferenciais-carousel__card {
+    width: calc(33.333% - 1.334rem);
+    padding: 2rem;
+  }
+}
+
+/* Trilho fino cinza com um segmento colorido por cima (mesma leitura da
+   referência): a largura do preenchimento é a % de scroll já percorrida,
+   escrita direto no atributo style pelo JS a cada evento de scroll. */
+.diferenciais-carousel__progress {
+  position: relative;
+  height: 2px;
+  /* Estica entre as duas setas, ocupando toda a largura que sobra da linha. */
+  flex: 1 1 auto;
+  min-width: 0;
+  border-radius: 999px;
+  background-color: color-mix(in srgb, var(--color-paper) 20%, transparent);
+}
+
+.diferenciais-carousel__progress-fill {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  border-radius: 999px;
+  /* gold-400, não o gold-600 original: sobre a trilha clara da fatia
+     escura o dourado escuro sumia (2,4:1). É o mesmo dourado dos ícones
+     das duas fatias escuras. */
+  background-color: var(--color-gold-400);
+  transition: width 0.2s ease;
+}
+
+/* Linha de controles embaixo do carrossel, na largura inteira da faixa de
+   cartões: seta anterior colada na ponta esquerda, seta seguinte na ponta
+   direita e a barra de progresso esticada entre as duas. Centralizar o
+   conjunto (que era o que estava aqui antes) deixava um vazio grande entre a
+   borda dos cartões e a primeira seta — a mesma faixa branca que o corredor
+   lateral criava, só que embaixo. */
+.diferenciais-carousel__controles {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.diferenciais-carousel__nav {
+  /* Só a seta, sem o círculo (borda + fundo + sombra) que ela tinha quando
+     ficava na lateral: lá o botão e o cartão dividiam o mesmo fundo
+     (--color-paper), e o círculo lia como um pedaço do cartão. Aqui embaixo,
+     longe da faixa de cartões, a seta sozinha já basta como sinal de "dá pra
+     passar pro lado". A área de clique continua sendo os 2.75rem do botão —
+     alvo de toque confortável no celular, onde agora ela também aparece — e o
+     border-radius fica pro anel de foco do teclado. O border/background/padding
+     zerados não são redundância do preflight do Tailwind: são o que garante
+     que sobre só a seta se o preflight sair do caminho. */
+  display: flex;
+  height: 2.75rem;
+  width: 2.75rem;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  padding: 0;
+  color: var(--color-paper);
+  cursor: pointer;
+  transition: color 0.2s ease, opacity 0.25s ease, visibility 0.25s ease;
+}
+
+/* Seta desativada: some de vista. O estado vem do atributo disabled, posto
+   pelo JS quando o carrossel chega numa das pontas (ver atualizarCarrossel).
+   visibility em vez de display pra manter a transição — com display:none o
+   navegador não anima nada e a seta piscaria de um quadro pro outro. */
+.diferenciais-carousel__nav[disabled] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.diferenciais-carousel__nav svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.diferenciais-carousel__nav:hover,
+.diferenciais-carousel__nav:focus-visible {
+  color: var(--color-gold-400);
+}
+
+/* --------------------------------------------------------------------------
+   9f. FAQ — acordeão nativo
+   <details>/<summary> em vez de um acordeão em JS: teclado, leitor de tela e
+   busca do navegador (Ctrl+F encontra texto dentro de itens fechados) já
+   funcionam de graça, sem precisar reimplementar nada disso. O JS do site
+   não toca aqui — só o CSS abaixo cuida da aparência (esconde o marcador
+   nativo do <summary>, gira o chevron) e o próprio navegador cuida de abrir
+   e fechar. */
+.faq-item {
+  padding-block: 1.25rem;
+}
+
+.faq-item__question {
+  display: flex;
+  cursor: pointer;
+  list-style: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--color-graphite-900);
+}
+
+/* Marcador padrão do <summary> (a seta do Chrome/Safari): escondido porque
+   o .faq-item__chevron abaixo já cumpre esse papel, com controle de estilo
+   e animação que o marcador nativo não permite. */
+.faq-item__question::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item__question:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.faq-item__chevron {
+  height: 1.25rem;
+  width: 1.25rem;
+  flex: none;
+  color: var(--color-olive-800);
+  transition: transform 0.25s ease;
+}
+
+.faq-item[open] .faq-item__chevron {
+  transform: rotate(180deg);
+}
+
+.faq-item__answer {
+  margin-top: 0.75rem;
+  padding-right: 2rem;
+  line-height: 1.6;
+  color: var(--color-graphite-600);
+}
+
+/* Indicadores da seção "Quem somos" (+10 anos, +800 clientes, +R$ 200M).
+   nowrap porque "+800 CLIENTES" é o mais longo dos três e quebrava em duas
+   linhas ("+800" / "CLIENTES") na maioria das larguras de desktop: a coluna
+   tem 384px em 1280px de tela e o texto, 385px. Um pixel. Com a quebra, a
+   legenda dessa coluna descia e ficava fora de linha com as outras duas.
+   Como nowrap sozinho faria o texto transbordar a coluna e invadir a
+   vizinha, o tamanho é fluido: cresce com a tela e para nos 52px de antes,
+   que é onde ele cabe inteiro. O mesmo tamanho vale para os três, senão um
+   indicador ficaria menor que os outros sem motivo aparente. */
+.stat-numero {
+  white-space: nowrap;
+  line-height: 1.1;
+  /* Empilhados, um por linha: o número tem a largura toda e o limite é só
+     não passar da borda da tela. */
+  font-size: clamp(2rem, 10vw, 2.75rem);
+}
+
+@media (min-width: 768px) {
+  /* Três por linha: agora cada número disputa um terço da largura, e o teto
+     é o tamanho original de 52px — alcançado a partir de ~1530px, onde a
+     coluna finalmente comporta os 385px de "+800 CLIENTES". */
+  .stat-numero {
+    font-size: clamp(1.625rem, 3.4vw, 52px);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   10. Animação de entrada ao rolar
+   O elemento só fica invisível se o JS estiver ativo (a classe `js` é posta no
+   <html> logo no início do documento), para que o conteúdo apareça normalmente
+   quando o JavaScript falha ou está desligado.
+   -------------------------------------------------------------------------- */
+.js .revelar {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 700ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 700ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.js .revelar.visivel {
+  opacity: 1;
+  transform: none;
+}
+
+/* Variante lateral: os cartões de Propósito entram vindo da direita, não de
+   baixo pra cima. A regra de chegada (opacity/transform final) continua
+   sendo a de .revelar.visivel acima — só o ponto de partida muda aqui, e por
+   isso essa regra precisa vir DEPOIS de ".js .revelar" no arquivo (mesma
+   especificidade, então quem é declarado por último vence a disputa do
+   transform inicial). */
+.js .revelar--right {
+  transform: translateX(64px);
+}
+
+/* --------------------------------------------------------------------------
+   11. Movimento reduzido
+   Zera durações e animações. Os estados finais continuam iguais aos de todo
+   mundo: quem pede menos movimento vê a mesma interface, só que sem o tween.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .js .revelar {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Exceção: sem o loop, boa parte das logos de parceiros nunca apareceria
+     pra quem pede menos movimento (só cabem ~5 na largura da tela). O
+     scroll é lento, linear e sem susto, e continua pausável no hover/foco
+     do mouse e teclado — por isso volta a rodar mesmo aqui. */
+  .partners-marquee__track {
+    animation-duration: 56s !important;
+    animation-iteration-count: infinite !important;
+  }
+}
+
+
+
+
+/* ==========================================================================
+   TEMA MONTE MORIÁ: branco + azul petróleo
+   Fundo branco em todas as seções; #056370 em títulos, ícones, linhas e
+   números e também nos botões de ação. Sobrescreve as regras do modelo
+   acima (mesma especificidade, vem depois).
+   ========================================================================== */
+.bg-mesh-light,
+.bg-mesh-olive,
+.bg-mesh-dark {
+  background-color: #ffffff;
+  background-image: none;
+}
+
+/* Botão de ação: petróleo chapado, texto branco. No hover o preenchimento
+   cresce num petróleo mais escuro a partir do ponto branco. */
+.cta-btn,
+.cta-btn--outline {
+  --cta-fill: var(--color-acao-escuro);
+  --cta-hover-fg: #ffffff;
+  background-color: var(--color-acao);
+  border-color: var(--color-acao);
+  color: #ffffff;
+}
+.cta-btn::before {
+  background: #ffffff;
+}
+.cta-btn:hover::before,
+.cta-btn:focus-visible::before {
+  background: var(--cta-fill);
+}
+.cta-btn--outline:hover,
+.cta-btn--outline:focus-visible {
+  border-color: var(--color-acao-escuro);
+}
+
+/* Botão de WhatsApp (CTA do hero): verde oficial #25D366, o mesmo do
+   .whatsapp-fab. Texto graphite-950, não branco: branco sobre esse verde fica
+   em ~2:1, e o grafite passa de 9:1. No hover o preenchimento cresce no
+   verde-escuro do WhatsApp (#075E54) com texto branco (~7,5:1). Seletor
+   duplo pra vencer o ".hero-foto .cta-btn" que põe borda clara nos botões
+   sobre o vídeo. */
+.cta-btn.cta-btn--whatsapp {
+  --cta-fill: #075e54;
+  --cta-hover-fg: #ffffff;
+  background-color: #25d366;
+  border-color: #25d366;
+  color: var(--color-graphite-950);
+}
+.cta-btn.cta-btn--whatsapp::before {
+  background: var(--color-graphite-950);
+}
+/* A cor do hover precisa ser repetida: a regra acima tem a mesma
+   especificidade do ".cta-btn:hover" da base e vem depois, então venceria
+   também no hover e deixaria o texto escuro sobre o verde-escuro. */
+.cta-btn.cta-btn--whatsapp:hover,
+.cta-btn.cta-btn--whatsapp:focus-visible {
+  border-color: #075e54;
+  color: var(--cta-hover-fg);
+}
+.cta-btn.cta-btn--whatsapp:hover::before,
+.cta-btn.cta-btn--whatsapp:focus-visible::before {
+  background: var(--cta-fill);
+}
+
+/* Botão secundário (cartões de serviço, "Voltar"): contorno petróleo. */
+.cta-btn--dark {
+  --cta-fill: var(--color-olive-700);
+  --cta-hover-fg: #ffffff;
+  background-color: transparent;
+  border-color: var(--color-olive-700);
+  color: var(--color-olive-700);
+}
+.cta-btn--dark::before,
+.cta-btn--dark:hover::before,
+.cta-btn--dark:focus-visible::before {
+  background: var(--color-olive-700);
+}
+
+/* Cartões que eram de vidro escuro viram cartões brancos com borda sutil. */
+.glass-card--dark,
+.diferenciais-carousel__card {
+  border: 1px solid #e3e7e8;
+  background-color: #ffffff;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 18px 40px -28px rgb(3 63 71 / 0.25);
+}
+.diferenciais-carousel__nav {
+  color: var(--color-olive-700);
+}
+.diferenciais-carousel__nav:hover,
+.diferenciais-carousel__nav:focus-visible {
+  color: var(--color-olive-900);
+}
+.diferenciais-carousel__progress {
+  background-color: #e3e7e8;
+}
+.diferenciais-carousel__progress-fill {
+  background-color: var(--color-olive-700);
+}
+
+.section-divider {
+  background-color: #e3e7e8;
+}
+.section-divider__plus {
+  color: var(--color-olive-700);
+}
+
+.glass-card--hero {
+  border: 1px solid #e3e7e8;
+  background-color: #ffffff;
+  box-shadow: 0 24px 60px -30px rgb(3 63 71 / 0.3);
+}
+
+.footer-link {
+  color: var(--color-graphite-700) !important;
+}
+.footer-link:hover {
+  color: var(--color-olive-700) !important;
+}
+
+/* O brilho de vidro do modelo cobria o título do formulário; sobre branco não faz sentido. */
+.glass-card--hero::before {
+  content: none;
+}
+
+/* Sobre foto escura (hero, cartões em destaque) o petróleo chapado some no
+   fundo: um contorno claro sutil destaca o botão. */
+.hero-foto .cta-btn,
+.solucoes-featured .cta-btn {
+  border-color: rgb(255 255 255 / 0.45);
+  box-shadow: 0 10px 28px -12px rgb(0 0 0 / 0.55);
+}
+
+/* ==========================================================================
+   BANNER DO RESIDENCIAL (#loteamento)
+   Aba no canto de cima com localização e metragem, encaixada na moldura de
+   um carrossel de fotos. A aba é feita de três peças pra moldura parecer um
+   contorno só:
+     .banner-res__aba-conteudo  bordas esquerda, de cima e direita (cantos
+                                de cima arredondados)
+     .banner-res__pe            só borda esquerda, fundo da seção; desce até
+                                cobrir a linha de cima da moldura embaixo dela
+     .banner-res__pe::after     a curva côncava: continua a borda direita da
+                                aba e dobra pra virar a linha de cima da
+                                moldura
+   O fundo da aba e do pé é o mesmo da seção (paper), então a área fora da
+   curva não aparece como remendo.
+   ========================================================================== */
+.banner-res {
+  --banner-borda: 1.5px;
+  --banner-raio: 16px;
+  --banner-cor: var(--color-olive-900);
+}
+
+.banner-res__topo {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: stretch;
+  /* O pé da aba cobre a linha de cima da moldura logo abaixo. */
+  margin-bottom: calc(-1 * var(--banner-borda));
+}
+
+.banner-res__aba {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* flex: 1 faz o conteúdo crescer até a altura da linha (que pode vir mais
+   alta do lado das setas), mantendo o pé sempre colado na moldura. */
+.banner-res__aba-conteudo {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  gap: 0.5rem 1.75rem;
+  padding: 1rem 2rem 0.25rem;
+  border: var(--banner-borda) solid var(--banner-cor);
+  border-bottom: 0;
+  border-radius: var(--banner-raio) var(--banner-raio) 0 0;
+  background-color: var(--color-paper);
+}
+
+.banner-res__info {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  color: var(--color-graphite-700);
+  white-space: nowrap;
+}
+
+.banner-res__info svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--color-graphite-900);
+}
+
+.banner-res__info strong {
+  font-weight: 700;
+  color: var(--color-graphite-900);
+}
+
+.banner-res__pe {
+  position: relative;
+  height: calc(var(--banner-raio) + var(--banner-borda));
+  border-left: var(--banner-borda) solid var(--banner-cor);
+  background-color: var(--color-paper);
+}
+
+.banner-res__pe::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(100% - var(--banner-borda));
+  width: calc(var(--banner-raio) + var(--banner-borda));
+  border-left: var(--banner-borda) solid var(--banner-cor);
+  border-bottom: var(--banner-borda) solid var(--banner-cor);
+  border-bottom-left-radius: var(--banner-raio);
+}
+
+/* Link e setas, à direita da aba, alinhados com o texto dela (o padding de
+   baixo desconta a altura do pé). */
+.banner-res__resto {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-width: 0;
+  padding: 0.5rem 0 calc(var(--banner-raio) + var(--banner-borda) + 0.25rem) calc(var(--banner-raio) + 1.25rem);
+}
+
+.banner-res__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+  color: var(--color-graphite-900);
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.banner-res__link svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.banner-res__link:hover {
+  color: var(--color-acao);
+}
+
+.banner-res__link:hover svg {
+  transform: translateX(3px);
+}
+
+.banner-res__setas {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.banner-res__seta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.375rem;
+  height: 3rem;
+  border-radius: 999px;
+  background-color: var(--color-acao);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.banner-res__seta svg {
+  width: 20px;
+  height: 20px;
+}
+
+.banner-res__seta:hover {
+  background-color: var(--color-acao-escuro);
+}
+
+.banner-res__seta:active {
+  transform: scale(0.94);
+}
+
+.banner-res__moldura {
+  position: relative;
+  overflow: hidden;
+  border: var(--banner-borda) solid var(--banner-cor);
+  border-radius: 0 var(--banner-raio) var(--banner-raio) var(--banner-raio);
+  background-color: var(--color-olive-900);
+}
+
+.banner-res__trilho {
+  display: flex;
+  height: clamp(15rem, 34vw, 27.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.banner-res__trilho::-webkit-scrollbar {
+  display: none;
+}
+
+.banner-res__slide {
+  position: relative;
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+
+.banner-res__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.banner-res__legenda {
+  position: absolute;
+  left: 1.25rem;
+  bottom: 1.25rem;
+  max-width: calc(100% - 2.5rem);
+  padding: 0.5rem 1rem;
+  /* 14px e não pílula: no celular a legenda pode quebrar em duas linhas. */
+  border-radius: 14px;
+  background-color: rgb(2 47 53 / 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.banner-res__pontos {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-top: 0.75rem;
+}
+
+/* Área de toque de 24px em volta de uma bolinha de 10px. */
+.banner-res__ponto {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+}
+
+.banner-res__ponto::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background-color: #92c6cd; /* olive-300 do tailwind-config */
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.banner-res__ponto.is-ativo::before {
+  background-color: var(--color-olive-900);
+  transform: scale(1.15);
+}
+
+/* Celular: aba mais compacta, sem o link (o CTA de visita aparece logo
+   abaixo, nos cartões e no formulário) e setas menores. */
+@media (max-width: 639px) {
+  .banner-res__aba-conteudo {
+    gap: 0.25rem 1rem;
+    padding: 0.75rem 1rem 0.125rem;
+  }
+
+  .banner-res__info {
+    font-size: 0.8125rem;
+  }
+
+  .banner-res__info svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .banner-res__link {
+    display: none;
+  }
+
+  .banner-res__resto {
+    justify-content: flex-end;
+    padding-left: calc(var(--banner-raio) + 0.5rem);
+  }
+
+  .banner-res__seta {
+    width: 2rem;
+    height: 2.5rem;
+  }
+
+  .banner-res__legenda {
+    left: 0.75rem;
+    bottom: 0.75rem;
+    font-size: 0.8125rem;
+  }
+}
+
+/* ==========================================================================
+   O RESIDENCIAL EM NÚMEROS (#sobre)
+   Faixa clara com três itens: ícone de traço (64px) à esquerda, número
+   grande e legenda curta à direita. No desktop os itens se separam por um
+   filete vertical petróleo; empilhados no celular, por um filete horizontal.
+   ========================================================================== */
+.numeros {
+  display: grid;
+  border-radius: 20px;
+  background-color: var(--color-olive-50);
+  padding: 0.5rem 1.5rem;
+}
+
+.numeros__item {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.5rem 0;
+}
+
+.numeros__item + .numeros__item {
+  border-top: 1px solid rgb(5 99 112 / 0.3);
+}
+
+.numeros__icone {
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  color: var(--color-graphite-900);
+}
+
+.numeros__valor {
+  font-size: clamp(2rem, 8vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-graphite-900);
+  white-space: nowrap;
+}
+
+.numeros__legenda {
+  max-width: 15rem;
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: var(--color-graphite-600);
+}
+
+@media (min-width: 900px) {
+  .numeros {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 2.25rem 0;
+  }
+
+  .numeros__item {
+    justify-content: center;
+    padding: 0.5rem 2rem;
+  }
+
+  .numeros__item + .numeros__item {
+    border-top: 0;
+    border-left: 1px solid rgb(5 99 112 / 0.35);
+  }
+
+  .numeros__icone {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+
+  .numeros__valor {
+    font-size: clamp(2.25rem, 3.4vw, 3rem);
+  }
+}
+
+/* ==========================================================================
+   HERO COM A CORRETORA (Monte Moriá)
+   Uma tela inteira (100svh, com 100vh de reserva). Foto aérea ao fundo e o
+   recorte da Gilmara à direita, de pé na base da tela, com as mãos
+   apontando pro título. Ela fica por baixo do texto (z-index 1 contra 2).
+
+   Desktop (>= 1024px): a altura dela é 90% do palco, com teto de 50rem;
+   o texto ganha uma largura máxima que nunca alcança o recorte:
+   0,799 é a proporção do arquivo (1064 x 1332, recorte da cabeça ao
+   quadril).
+   Celular/tablet: também de pé na base, mais à direita e maior, com o
+   texto à esquerda passando só por cima das mãos e do blazer. (Uma máscara
+   de transparência foi testada antes e deixava o corpo dela translúcido,
+   como um fantasma sobre a foto.)
+   ========================================================================== */
+.hero-foto__stage {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  min-height: 600px;
+}
+
+.hero-gilmara {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  right: -20%;
+  height: 54%;
+  margin: 0;
+  pointer-events: none;
+}
+
+
+.hero-gilmara img {
+  height: 100%;
+  width: auto;
+  filter: drop-shadow(0 24px 40px rgb(0 0 0 / 0.35));
+}
+
+/* Wrapper do tamanho exato da imagem, pra etiqueta se posicionar em
+   relação ao corpo dela (no celular a <figure> é mais larga que a foto). */
+.hero-gilmara__foto {
+  position: relative;
+  height: 100%;
+}
+
+/* Nome e CRECI em texto solto, pequeno, na altura da cintura e à
+   esquerda do corpo dela (não por cima): a borda direita do texto para em
+   34% da largura do recorte, logo antes de onde começa o blazer (~37%), e
+   o texto cresce pra esquerda, pro vão embaixo das mãos. Sem fundo; a
+   sombra só garante a leitura sobre a foto. */
+.hero-gilmara__nome {
+  position: absolute;
+  z-index: 1;
+  margin: 0;
+  right: 66%;
+  bottom: 12%;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: #fff;
+  white-space: nowrap;
+  text-align: right;
+  text-shadow: 0 1px 10px rgb(0 0 0 / 0.45);
+}
+
+.hero-gilmara__sep {
+  margin: 0 0.3rem;
+  opacity: 0.6;
+}
+
+/* Celular: texto ainda menor. */
+@media (max-width: 639px) {
+  .hero-gilmara__nome {
+    /* 10px: piso de legibilidade pra texto informativo não clicável. */
+    font-size: 0.625rem;
+    line-height: 1.35;
+  }
+
+}
+
+/* Até o tablet a etiqueta quebra em duas linhas (nome / CRECI): numa linha
+   só ela encostava na borda da tela no celular e no botão do hero a 768px. */
+@media (max-width: 1023px) {
+  /* Rente à base: mais acima encostava no subtítulo do hero. */
+  .hero-gilmara__nome {
+    bottom: 4%;
+  }
+
+  .hero-gilmara__nome > span {
+    display: block;
+  }
+
+  .hero-gilmara__nome .hero-gilmara__sep {
+    display: none;
+  }
+}
+
+/* Telas largas: o bloco do título continua ancorado embaixo, mas com mais
+   folga no pé (antes 6rem fixos), pra subir e não deixar o terço de cima
+   do hero vazio. Acompanha a altura da tela pra não colar no header em
+   telas baixas. */
+@media (min-width: 1024px) {
+  .hero-foto .hero-conteudo {
+    padding-bottom: clamp(6rem, 17svh, 11rem);
+  }
+}
+
+/* Celular (< 640px): o recorte vai da cabeça ao quadril e é largo (as
+   mãos abertas); posicionado por cima, ele disputava o texto em qualquer
+   altura. Aqui sai do absoluto e entra no fluxo: o texto fica no alto e a
+   Gilmara ocupa o espaço que sobra embaixo, encostada à direita, com as
+   mãos apontando pro vazio à esquerda. Seletores com .hero-foto pra vencer
+   os utilitários do Tailwind (pt-32, flex-1, justify-end) do HTML. */
+@media (max-width: 639px) {
+  .hero-foto .hero-conteudo {
+    flex: none;
+    justify-content: flex-start;
+    padding-top: 6rem;
+    padding-bottom: 0;
+  }
+
+  .hero-foto .hero-gilmara {
+    position: relative;
+    order: 2;
+    right: auto;
+    bottom: auto;
+    display: flex;
+    flex: 1 1 0;
+    justify-content: flex-end;
+    align-items: flex-end;
+    height: auto;
+    min-height: 16rem;
+    margin-right: -0.5rem;
+  }
+
+  .hero-foto .hero-gilmara img {
+    height: 100%;
+    max-width: none;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .hero-gilmara {
+    right: -4%;
+    height: 66%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-gilmara {
+    top: auto;
+    bottom: 0;
+    right: max(1.5rem, calc((100vw - 80rem) / 2 + 1rem));
+    height: min(90%, 50rem);
+  }
+
+  /* Faixa livre à esquerda do recorte: palco 100% menos o "right" dele e
+     a largura (altura x 0,799, proporção de gilmara-hero.webp 1064 x 1332),
+     menos o padding esquerdo e um respiro. */
+  .hero-texto {
+    max-width: min(48rem, calc(100vw - max(1.5rem, (100vw - 80rem) / 2 + 1rem) - min(90svh, 50rem) * 0.799 - 3.5rem - 2rem));
+  }
+
+  /* A linha de baixo com a palavra mais longa ("para construir o seu
+     patrimônio.") mede ~7em do tamanho do título. A faixa livre acima
+     (.hero-texto) termina nas mãos da Gilmara, então o título nunca passa
+     de (faixa - 1rem) / 7.1: assim nenhuma palavra cai nas mãos dela. Nas
+     telas grandes quem manda é o teto de 5,25rem; em notebook pequeno
+     (~1024px, ela ocupa metade da tela) é esta conta. */
+  .hero-headline {
+    --hero-headline-tam: min(
+      clamp(2.75rem, 7vw, 5.25rem),
+      calc((min(48rem, 100vw - max(1.5rem, (100vw - 80rem) / 2 + 1rem) - min(90svh, 50rem) * 0.799 - 3.5rem - 2rem) - 1rem) / 7.1)
+    );
+  }
+}
+
+
+/* =========================================================================
+   BADGES DO HERO
+   Os três cartões de vidro que flutuam em volta da Gilmara (voltaram a
+   pedido da cliente, agora posicionados em relação ao recorte dela). O
+   .revelar fica no wrapper e a animação de flutuar em cada cartão, pra uma
+   transform não brigar com a outra. Delays negativos diferentes fazem cada
+   um começar num ponto do ciclo, senão sobem e descem em sincronia.
+   ========================================================================= */
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.hero-chips {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  text-align: left;
+  pointer-events: none;
+}
+
+.hero-chip {
+  position: absolute;
+  display: inline-flex;
+  flex-direction: column;
+  /* max-content: preso à borda da foto, o fit-content encolhia o badge
+     até o espaço que sobrava (o da direita virava uma coluna estreita). */
+  width: max-content;
+  max-width: 14rem;
+  white-space: normal;
+  border-radius: 14px;
+  border: 1px solid rgb(255 255 255 / 0.18);
+  background-color: rgb(16 19 26 / 0.42);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  padding: 0.5rem 0.875rem;
+  animation: hero-float 5.5s ease-in-out infinite;
+}
+
+/* Posições em % da foto da Gilmara (os badges moram dentro de
+   .hero-gilmara__foto), então acompanham o recorte em qualquer tela. O
+   translate centraliza cada badge no ponto; é propriedade separada do
+   transform da animação de flutuar, então um não anula o outro.
+   1: à esquerda do cabelo, acima das mãos; 2: abaixo das mãos, à esquerda
+   do blazer; 3: à direita do braço, saindo um pouco da foto. */
+/* 1 e 2 alinhados pela borda esquerda (mesmo left, sem centralizar no
+   eixo x), formando uma coluna à esquerda do corpo dela. */
+.hero-chip--1 {
+  left: 7%;
+  top: 32%;
+  translate: 0 -50%;
+  animation-delay: -1.2s;
+}
+
+.hero-chip--2 {
+  left: 7%;
+  top: 74%;
+  translate: 0 -50%;
+  animation-delay: -0.6s;
+}
+
+/* Mais pra fora do corpo e mais abaixo: centrado num ponto além da
+   borda direita da foto, na altura do quadril. */
+.hero-chip--3 {
+  left: 106%;
+  top: 72%;
+  translate: -50% -50%;
+  animation-delay: -2.1s;
+}
+
+/* Até ~1600px sobra pouca tela à direita da foto: o badge 3 encosta a
+   borda direita na da foto em vez de centralizar nela. */
+@media (max-width: 1599px) {
+  .hero-chip--3 {
+    left: auto;
+    right: -9%;
+    translate: 0 -50%;
+  }
+}
+
+/* Abaixo de 1440px a foto encosta quase na borda da tela: o badge volta
+   pra dentro da foto pra não ser cortado. */
+@media (max-width: 1439px) {
+  .hero-chip--3 {
+    right: 0;
+  }
+}
+
+.hero-chip__title {
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-gold-300);
+}
+
+.hero-chip__label {
+  margin-top: 0.15rem;
+  font-size: 0.6875rem;
+  line-height: 1.35;
+  color: rgb(255 255 255 / 0.78);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-chip {
+    animation: none;
+  }
+}
+
+/* =========================================================================
+   CARTÕES DO RESIDENCIAL: ENTRADA "ALINHANDO"
+   Quando a fileira entra na tela, dois cartões chegam pela esquerda e dois
+   pela direita e se encaixam lado a lado. O wrapper .solucoes-cards tem a
+   classe .revelar só pra receber o .visivel do IntersectionObserver; ele
+   mesmo não se mexe, quem anima são os filhos. A entrada usa a propriedade
+   `translate` (separada de `transform`) pra não brigar com o scale do hover.
+   Os de fora vêm de mais longe que os de dentro, então os quatro chegam
+   juntos, mas com um leve atraso em cascata a partir do centro.
+   ========================================================================= */
+.js .solucoes-cards.revelar {
+  opacity: 1;
+  transform: none;
+}
+
+.js .solucoes-cards.revelar .solucoes-card {
+  transition: translate 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 800ms ease, transform 0.5s ease, filter 0.5s ease;
+}
+
+.js .solucoes-cards.revelar:not(.visivel) .solucoes-card {
+  opacity: 0;
+}
+
+/* Até 1023px (1 ou 2 colunas): ímpares vêm da esquerda, pares da direita. */
+.js .solucoes-cards.revelar:not(.visivel) .solucoes-card:nth-child(odd) {
+  translate: -110% 0;
+}
+
+.js .solucoes-cards.revelar:not(.visivel) .solucoes-card:nth-child(even) {
+  translate: 110% 0;
+}
+
+@media (min-width: 1024px) {
+  .js .solucoes-cards.revelar:not(.visivel) .solucoes-card:nth-child(1) {
+    translate: -160% 0;
+  }
+
+  .js .solucoes-cards.revelar:not(.visivel) .solucoes-card:nth-child(2) {
+    translate: -90% 0;
+  }
+
+  .js .solucoes-cards.revelar:not(.visivel) .solucoes-card:nth-child(3) {
+    translate: 90% 0;
+  }
+
+  .js .solucoes-cards.revelar:not(.visivel) .solucoes-card:nth-child(4) {
+    translate: 160% 0;
+  }
+
+  /* Os do meio chegam primeiro, os das pontas logo depois. */
+  .js .solucoes-cards.revelar .solucoes-card:nth-child(1),
+  .js .solucoes-cards.revelar .solucoes-card:nth-child(4) {
+    transition-delay: 120ms, 120ms, 0s, 0s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .solucoes-cards.revelar .solucoes-card {
+    translate: none !important;
+    opacity: 1 !important;
+  }
+}
+
+
+/* Vídeo de fundo do hero (sem som, em loop; o pôster é a foto desfocada
+   enquanto carrega). O mesmo desfoque leve que a foto tinha, agora em CSS;
+   o scale esconde a borda clara que o blur cria nos cantos. No celular em
+   pé entra a versão vertical (720x1280) pelo <source media>. */
+.hero-video-fundo {
+  filter: blur(2px);
+  transform: scale(1.04);
+}
+
+
+/* Títulos em duas cores: a parte principal fica na cor do título (petróleo
+   no fundo claro, branco no escuro) e o trecho em .titulo-tom sai num tom
+   mais suave, como na referência. #6f9298 no branco dá ~3,4:1, acima do
+   mínimo de 3:1 pra texto grande; no fundo escuro entra o verde-água claro. */
+.titulo-tom {
+  color: #6f9298;
+}
+
+.solucoes-featured .titulo-tom {
+  color: #92c6cd;
+}
+
+/* =========================================================================
+   VERMELHO DA MARCA EM DETALHES
+   O vermelho da logo (#FF0100) entra só como acento pequeno, nunca em
+   área grande nem em texto: o "+" dos divisores de seção e o ponto ativo do
+   banner. (Na bolinha dos botões e nos pontos dos badges foi testado e a
+   cliente preferiu sem: os badges usam o petróleo da marca.) Estas regras vêm no fim do arquivo pra vencer
+   as anteriores de mesma especificidade.
+   ========================================================================= */
+:root {
+  --color-vermelho: #ff0100;
+}
+
+.section-divider__plus {
+  color: var(--color-vermelho);
+}
+
+.banner-res__ponto.is-ativo::before {
+  background-color: var(--color-vermelho);
+}
+
+.hero-chip__title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.hero-chip__title::before {
+  content: "";
+  flex: none;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  /* Petróleo claro: o escuro (#056370) some sobre o vidro escuro do badge. */
+  background-color: var(--color-gold-400);
+}
+
+/* Nome e CRECI pequenos ao lado do retrato do cartão #sobre, na mesma
+   linguagem do hero (texto solto, sem fundo). Fica à esquerda da foto,
+   perto da base do cartão: o "right" é o afastamento do retrato
+   (.solucoes-featured__portrait--sobre) mais a largura que ele ocupa. */
+.sobre-credencial {
+  position: absolute;
+  z-index: 52;
+  bottom: 1.75rem;
+  right: calc(clamp(0rem, 6vw - 3.5rem, 3rem) + 19rem);
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: rgb(255 255 255 / 0.85);
+  white-space: nowrap;
+  text-shadow: 0 1px 10px rgb(0 0 0 / 0.45);
+  pointer-events: none;
+}
+
+/* Em telas largas o cartão é mais baixo (o texto ocupa menos linhas) e o
+   retrato, cuja altura acompanha o cartão, fica mais estreito: aproxima o
+   texto pra não sobrar um vão até o corpo dela. */
+@media (min-width: 1280px) {
+  .sobre-credencial {
+    right: calc(clamp(0rem, 6vw - 3.5rem, 3rem) + 17.5rem);
+  }
+}
+
+/* =========================================================================
+   SEÇÃO DO FORMULÁRIO COM FOTO
+   Foto aérea do residencial no fundo com um véu em petróleo, no esquema
+   do site de referência: denso à esquerda (texto branco) e mais aberto à
+   direita, onde o cartão branco do formulário já tem contraste próprio.
+   ========================================================================= */
+.secao-contato__veu {
+  background-image:
+    linear-gradient(to bottom, rgb(2 47 53 / 0.35) 0%, rgb(2 47 53 / 0) 25%),
+    linear-gradient(
+      100deg,
+      rgb(2 47 53 / 0.94) 0%,
+      rgb(3 63 71 / 0.84) 45%,
+      rgb(5 99 112 / 0.55) 100%
+    );
+}
+
+.secao-contato .titulo-tom {
+  color: #92c6cd;
+}
+
+.secao-contato .cta-btn {
+  border-color: rgb(255 255 255 / 0.45);
+  box-shadow: 0 10px 28px -12px rgb(0 0 0 / 0.55);
+}
+
+/* Botões de dentro do cartão branco não levam a borda clara. */
+.secao-contato .glass-card--hero .cta-btn {
+  border-color: var(--color-acao);
+  box-shadow: none;
+}
+
+.secao-contato .glass-card--hero .cta-btn--dark {
+  border-color: var(--color-graphite-950, #10131a);
+}
+
+/* "Continuar" e "Enviar" no verde do WhatsApp (o envio cai no WhatsApp da
+   Gilmara). Repete a borda porque a regra do contorno petróleo acima é
+   mais específica que a do .cta-btn--whatsapp. */
+.secao-contato .glass-card--hero .cta-btn--whatsapp {
+  border-color: #25d366;
+}
+
+.secao-contato .glass-card--hero .cta-btn--whatsapp:hover,
+.secao-contato .glass-card--hero .cta-btn--whatsapp:focus-visible {
+  border-color: #075e54;
+}
+
+/* Salto do botão do formulário quando a pessoa clica em "Quero agendar
+   minha visita" (classe posta e tirada pelo site.js). Dois pulos que
+   perdem altura, com um anel verde se abrindo em volta. */
+@keyframes chamar-salto {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  15% {
+    transform: translateY(-14px) scale(1.03);
+  }
+  30% {
+    transform: translateY(0) scale(1);
+  }
+  42% {
+    transform: translateY(-7px) scale(1.015);
+  }
+  54% {
+    transform: translateY(0) scale(1);
+  }
+  62% {
+    transform: translateY(-2px);
+  }
+  70% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes chamar-brilho {
+  0% {
+    box-shadow: 0 0 0 0 rgb(37 211 102 / 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 18px rgb(37 211 102 / 0);
+  }
+}
+
+.cta-btn--chamando {
+  animation:
+    chamar-salto 1.1s cubic-bezier(0.33, 0, 0.2, 1),
+    chamar-brilho 0.9s ease-out 2;
+}
+
+/* Menos movimento: a regra global da seção 11 zera as animações, então em
+   vez do pulo o botão ganha um contorno verde fixo por ~2s (o site.js tira). */
+@media (prefers-reduced-motion: reduce) {
+  .cta-btn--chamando {
+    animation: none;
+    outline: 3px solid #25d366;
+    outline-offset: 3px;
+  }
+}
+
+/* =========================================================================
+   LANÇAMENTO: RESIDENCIAL MONTE MORIÁ 2
+   Cartão com a foto aérea do novo residencial de fundo e um véu petróleo
+   por cima: denso à esquerda, onde fica o texto, e mais aberto à direita,
+   onde a foto aparece atrás da "marca" do lançamento (o nome em linha fina
+   e um "2" gigante vazado em branco).
+   ========================================================================= */
+.lancamento {
+  position: relative;
+  display: grid;
+  gap: 2rem;
+  overflow: hidden;
+  border-radius: 24px;
+  background-color: var(--color-olive-900);
+  padding: 2.5rem 1.75rem;
+}
+
+.lancamento__img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* No celular o texto ocupa o cartão inteiro, então o véu é uniforme. */
+.lancamento__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgb(3 63 71 / 0.86);
+}
+
+@media (min-width: 900px) {
+  .lancamento__overlay {
+    background: linear-gradient(
+      100deg,
+      rgb(3 63 71 / 0.95) 0%,
+      rgb(3 63 71 / 0.85) 45%,
+      rgb(3 63 71 / 0.45) 100%
+    );
+  }
+}
+
+.lancamento .titulo-tom {
+  color: #92c6cd;
+}
+
+.lancamento .cta-btn {
+  border-color: rgb(255 255 255 / 0.45);
+  box-shadow: 0 10px 28px -12px rgb(0 0 0 / 0.55);
+}
+
+@media (min-width: 900px) {
+  .lancamento {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 3.5rem;
+  }
+}
+
+.lancamento__texto {
+  position: relative;
+  z-index: 1;
+}
+
+.lancamento__marca {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .lancamento__marca {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-right: 1rem;
+    user-select: none;
+  }
+
+  .lancamento__nome {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--color-paper);
+    text-shadow: 0 2px 12px rgb(0 0 0 / 0.45);
+  }
+
+  .lancamento__numero {
+    margin-top: -0.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(9rem, 16vw, 14rem);
+    font-weight: 600;
+    line-height: 0.9;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--color-paper);
+    filter: drop-shadow(0 4px 18px rgb(0 0 0 / 0.4));
+  }
+}
+
+/* =========================================================================
+   FAIXA EM PARALAXE
+   Respiro entre "Como comprar" e "A corretora": foto do loteamento de
+   ponta a ponta. A imagem tem 140% da altura da faixa (sobra 20% em cima e
+   embaixo) e o site.js a desloca dentro dessa sobra conforme a rolagem, o
+   que a faz andar mais devagar que a página. Sem o script ou com movimento
+   reduzido ela simplesmente fica centrada e parada. Não usa
+   background-attachment: fixed porque o Safari do iOS ignora.
+   ========================================================================= */
+.faixa-paralaxe {
+  position: relative;
+  overflow: hidden;
+  height: clamp(16rem, 62vh, 38rem);
+  background-color: var(--color-olive-900);
+}
+
+.faixa-paralaxe__img {
+  position: absolute;
+  left: 0;
+  top: -20%;
+  width: 100%;
+  height: 140%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* Leve sombra nas bordas de cima e de baixo, pra foto não "colar" nas
+   seções claras vizinhas. */
+.faixa-paralaxe::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgb(2 47 53 / 0.25) 0%,
+    rgb(2 47 53 / 0) 18%,
+    rgb(2 47 53 / 0) 82%,
+    rgb(2 47 53 / 0.25) 100%
+  );
+}
+
+/* Véu petróleo concentrado no centro, atrás da frase, pra o branco ler bem
+   sobre os trechos claros da foto (ruas e terra) sem apagar as bordas. */
+.faixa-paralaxe__veu {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgb(2 47 53 / 0.72), rgb(2 47 53 / 0.32) 100%);
+}
+
+/* Frase que sobe quando a faixa chega na tela. Fica parada no meio da
+   faixa (não acompanha a foto). Mesma divisão do título do hero: "O lugar
+   certo" grande e o resto embaixo com a largura da linha de cima (mesma
+   razão 0,48 medida em .hero-headline__rest). */
+.faixa-paralaxe__texto {
+  --faixa-texto-tam: clamp(2.5rem, 7vw, 6rem);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  text-align: center;
+  color: var(--color-paper);
+  font-family: var(--font-display);
+  text-shadow: 0 2px 28px rgb(0 0 0 / 0.35);
+}
+
+.faixa-paralaxe__grande {
+  font-size: var(--faixa-texto-tam);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+.faixa-paralaxe__resto {
+  margin-top: 0.75rem;
+  font-size: calc(var(--faixa-texto-tam) * 0.48);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: #d3ecef;
+}
+
+/* Subida mais longa e mais lenta que o .revelar padrão (24px / 700ms), e a
+   segunda linha vem logo depois da primeira. */
+.js .revelar--subir {
+  transform: translateY(70px);
+  transition-duration: 1100ms;
+}
+
+.js .faixa-paralaxe__resto.revelar--subir {
+  transition-delay: 180ms;
+}
