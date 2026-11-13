@@ -42,6 +42,38 @@
             lenis.raf(t);
             requestAnimationFrame(animar);
           })(0);
+
+          /* Botão do mouse pressionado (arrastar a barra de rolagem,
+             selecionar texto): o Lenis só cancela a própria animação com o
+             botão do meio. Com o esquerdo, a rolagem suave que ainda estava
+             em curso seguia empurrando a página enquanto a pessoa arrastava,
+             e as duas brigavam (a página dava trancos). Aqui a animação para
+             no clique e, enquanto o botão estiver pressionado, a roda volta
+             a ser a rolagem nativa. */
+          var soltarBotao = function () {
+            lenis.options.smoothWheel = true;
+          };
+          window.addEventListener(
+            "pointerdown",
+            function (ev) {
+              if (ev.pointerType !== "mouse") return;
+              lenis.reset();
+              lenis.options.smoothWheel = false;
+            },
+            { capture: true, passive: true }
+          );
+          window.addEventListener("pointerup", soltarBotao, { capture: true, passive: true });
+          window.addEventListener("pointercancel", soltarBotao, { capture: true, passive: true });
+          window.addEventListener("blur", soltarBotao);
+          // Soltar o botão em cima da barra de rolagem nem sempre gera
+          // pointerup; o próximo giro da roda sem botão nenhum religa.
+          window.addEventListener(
+            "wheel",
+            function (ev) {
+              if (ev.buttons === 0) soltarBotao();
+            },
+            { capture: true, passive: true }
+          );
         }
 
         /* Rolagem até âncoras, respeitando a altura do header fixo. Mede o
