@@ -1391,6 +1391,25 @@ h6 {
   right: clamp(0rem, 6vw - 3.5rem, 3rem);
 }
 
+/* Abaixo de lg o retrato volta, mas embaixo do texto: centralizado, rente ao
+   pé do cartão, e o cartão reserva a altura dele no padding de baixo pra o
+   texto não passar por trás. Seletores dobrados pra vencer o display: none
+   de .solucoes-featured__portrait e o p-7/sm:p-10 do Tailwind. */
+@media (max-width: 1023px) {
+  .solucoes-featured__portrait.solucoes-featured__portrait--sobre {
+    display: block;
+    z-index: 2;
+    height: 22rem;
+    right: 50%;
+    translate: 50% 0;
+  }
+
+  /* 22rem do retrato + 1.5rem de respiro até o botão. */
+  #sobre .solucoes-featured {
+    padding-bottom: 23.5rem;
+  }
+}
+
 /* --------------------------------------------------------------------------
    9d. Divisor de seção (linha + "+")
    Marca a transição entre uma seção e a próxima: um filete de 1px com um "+"
