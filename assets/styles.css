@@ -2779,10 +2779,11 @@ h6 {
     flex: none;
     justify-content: flex-end;
     align-items: flex-end;
-    /* Proporção do iPhone SE (375x667, ~19rem): em telas mais altas ela
-       para em 24rem e o texto se centraliza na sobra acima. */
-    height: clamp(15rem, 100svh - 23rem, 24rem);
-    margin-top: -2rem;
+    /* Proporção do iPhone SE (375x667, ~21rem): em telas mais altas ela
+       para em 28rem e o texto se centraliza na sobra acima. Sobe 3rem por
+       trás do botão: a cabeça fica à direita, longe dele. */
+    height: clamp(17rem, 100svh - 20rem, 28rem);
+    margin-top: -3rem;
     margin-right: -2.75rem;
   }
 
@@ -2798,9 +2799,11 @@ h6 {
     font-size: 0.625rem;
   }
 
-  /* O pé do hero agora é a Gilmara; a dica de rolar caía em cima dela. */
+  /* Dica de rolar à esquerda, alinhada ao texto: no centro ela caía no
+     nome/CRECI e no blazer da Gilmara. */
   .hero-rolar {
-    display: none;
+    left: 0.5rem;
+    translate: none;
   }
 }
 
