@@ -3,6 +3,17 @@
 
         var semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+        /* ---- Meta Pixel: eventos de conversão ----------------------------
+           O PageView já sai do <head>. Aqui ficam o Contact (clique em
+           qualquer link do WhatsApp) e o Lead (formulário enviado). */
+        var rastrear = function (evento) {
+          if (typeof window.fbq === "function") window.fbq("track", evento);
+        };
+        document.addEventListener("click", function (ev) {
+          var link = ev.target.closest && ev.target.closest('a[href*="wa.me/"]');
+          if (link) rastrear("Contact");
+        });
+
         /* ---- Lenis: scroll suave ----------------------------------------
            Fica desligado para quem pede menos movimento; nesse caso o
            navegador cuida da rolagem normalmente. */
@@ -733,6 +744,7 @@
                 var v = dados.get(par[0]);
                 if (v) linhas.push(par[1] + ": " + v);
               });
+              rastrear("Lead");
               window.open("https://wa.me/" + (form.dataset.whatsapp || "5527999784895") + "?text=" + encodeURIComponent(linhas.join("\n")), "_blank", "noopener");
               mostrarStatus("Abrimos o WhatsApp com a sua mensagem pronta. É só enviar.", "ok");
               return;
@@ -763,6 +775,7 @@
                 // `replace`) mantém o site no histórico, pra o "voltar"
                 // funcionar como a pessoa espera.
                 redirecionando = true;
+                rastrear("Lead");
                 mostrarStatus("Solicitação enviada. Redirecionando...", "ok");
                 window.location.assign("obrigado.html");
               })
