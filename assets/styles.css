@@ -2695,14 +2695,75 @@ h6 {
    Gilmara ocupa o espaço que sobra embaixo, encostada à direita, com as
    mãos apontando pro vazio à esquerda. Seletores com .hero-foto pra vencer
    os utilitários do Tailwind (pt-32, flex-1, justify-end) do HTML. */
+/* Dica de rolar no pé do hero: só no celular, onde o hero ocupa a tela
+   toda e não dá pra ver que há conteúdo embaixo. A seta balança de leve. */
+.hero-rolar {
+  display: none;
+}
+
+@keyframes hero-rolar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
 @media (max-width: 639px) {
-  .hero-foto .hero-conteudo {
-    flex: none;
-    justify-content: flex-start;
-    padding-top: 6rem;
-    padding-bottom: 0;
+  .hero-rolar {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    translate: -50% 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.125rem;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 10px rgb(0 0 0 / 0.45);
   }
 
+  .hero-rolar svg {
+    width: 26px;
+    height: 26px;
+    animation: hero-rolar 1.8s ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rolar svg {
+    animation: none;
+  }
+}
+
+/* Celular: título, subtítulo e botão centralizados sobre o vídeo, sem a
+   foto da Gilmara (as regras de .hero-gilmara abaixo ficam caso a foto
+   volte). */
+@media (max-width: 639px) {
+  .hero-foto .hero-gilmara {
+    display: none !important;
+  }
+
+  .hero-foto .hero-conteudo {
+    flex: 1 1 auto;
+    justify-content: center;
+    padding-top: 5rem;
+    padding-bottom: 5.5rem;
+  }
+
+  .hero-foto .hero-texto {
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-foto .hero-headline {
+    align-items: center;
+  }
+}
+
+@media (max-width: 639px) {
   .hero-foto .hero-gilmara {
     position: relative;
     order: 2;
@@ -3331,6 +3392,33 @@ h6 {
   transition-delay: 180ms;
 }
 
+/* Setas do carrossel de infraestrutura: só existem no celular (ver o bloco
+   de até 639px no fim do arquivo). */
+.solucoes-nav {
+  display: none;
+}
+
+@keyframes solucoes-dica {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .solucoes-nav__dica svg {
+    animation: none !important;
+  }
+}
+
+/* Botão que leva ao formulário, embaixo da frase. Sem a sombra da frase,
+   que borraria o texto do botão no hover. */
+.faixa-paralaxe__cta {
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+  text-shadow: none;
+}
+.js .faixa-paralaxe__cta.revelar--subir {
+  transition-delay: 320ms;
+}
+
 /* =========================================================================
    CELULAR: AJUSTES DE TOQUE, ALVOS E LAYOUT
    Regras pensadas pra tela de toque e larguras até 639px. Vêm no fim do
@@ -3459,9 +3547,44 @@ summary,
     scroll-snap-align: start;
   }
 
+  /* Dica de arrastar + setas embaixo do carrossel (fora dele fica oculto). */
+  .solucoes-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .solucoes-nav__dica {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-olive-700);
+  }
+
+  .solucoes-nav__dica svg {
+    width: 18px;
+    height: 18px;
+    animation: solucoes-dica 1.6s ease-in-out infinite;
+  }
+
+  .solucoes-nav .banner-res__seta:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
   /* A entrada "alinhando" (cartões vindo de ±110%) alargava a pista de
      rolagem durante a animação; no carrossel eles só aparecem. */
   .js .solucoes-cards.revelar:not(.visivel) .solucoes-card {
     translate: none;
   }
+}
+
+/* Botão que nunca quebra linha (ex.: "Falar com a Gilmara" na seção da
+   corretora). Vem no fim pra vencer o white-space: normal do celular. */
+.cta-btn.cta-btn--uma-linha {
+  white-space: nowrap;
 }

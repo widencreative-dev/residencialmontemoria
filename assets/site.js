@@ -417,6 +417,38 @@
           atualizarCarrossel();
         }
 
+        /* ---- Setas dos cartões de infraestrutura (celular) -----------------
+           No celular os cartões viram carrossel com scroll-snap. As setas
+           andam um cartão por vez e apagam nas pontas. */
+        var navSol = document.querySelector("[data-solucoes-nav]");
+        var trilhoSol = document.querySelector(".solucoes-cards");
+        if (navSol && trilhoSol) {
+          var antSol = navSol.querySelector("[data-solucoes-ant]");
+          var proxSol = navSol.querySelector("[data-solucoes-prox]");
+
+          function passoSol() {
+            var card = trilhoSol.querySelector(".solucoes-card");
+            var gap = parseFloat(getComputedStyle(trilhoSol).columnGap) || 0;
+            return card ? card.offsetWidth + gap : trilhoSol.clientWidth;
+          }
+
+          function atualizarSol() {
+            var max = trilhoSol.scrollWidth - trilhoSol.clientWidth;
+            antSol.disabled = trilhoSol.scrollLeft <= 2;
+            proxSol.disabled = trilhoSol.scrollLeft >= max - 2;
+          }
+
+          antSol.addEventListener("click", function () {
+            trilhoSol.scrollBy({ left: -passoSol(), behavior: semMovimento ? "auto" : "smooth" });
+          });
+          proxSol.addEventListener("click", function () {
+            trilhoSol.scrollBy({ left: passoSol(), behavior: semMovimento ? "auto" : "smooth" });
+          });
+          trilhoSol.addEventListener("scroll", atualizarSol, { passive: true });
+          window.addEventListener("resize", atualizarSol);
+          atualizarSol();
+        }
+
         /* ---- Banner do residencial -----------------------------------------
            A rolagem é do próprio navegador (scroll-snap no trilho), então
            arrastar no celular já funciona sem JS. Aqui ficam as setas, as
@@ -733,35 +765,39 @@
               return;
             }
 
-            /* Sem endpoint configurado ainda (action com [INSERIR...]): monta
-               uma mensagem com as respostas e abre o WhatsApp da corretora.
-               Quando houver um webhook real em `action`, o fetch abaixo
-               assume sozinho. */
-            if (form.getAttribute("action").indexOf("[") !== -1) {
-              var dados = new FormData(form);
-              var linhas = ["Olá, Gilmara Tusthler! Vim pelo site do Residencial Monte Moriá."];
-              [["interesse", "Interesse"], ["finalidade", "Finalidade"], ["visita", "Visita"], ["nome", "Nome"], ["telefone", "WhatsApp"], ["email", "E-mail"]].forEach(function (par) {
-                var v = dados.get(par[0]);
-                if (v) linhas.push(par[1] + ": " + v);
-              });
-              rastrear("Lead");
-              window.open("https://wa.me/" + (form.dataset.whatsapp || "5527999784895") + "?text=" + encodeURIComponent(linhas.join("\n")), "_blank", "noopener");
-              mostrarStatus("Abrimos o WhatsApp com a sua mensagem pronta. É só enviar.", "ok");
-              return;
-            }
+            /* Envio para o enviar-lead.php (mesma pasta), em JSON. O sucesso
+               só aparece se o servidor responder { ok: true }; qualquer outra
+               coisa cai na mensagem de erro e o botão volta a funcionar. */
+            var dados = new FormData(form);
+            var corpo = {
+              nome: (dados.get("nome") || "").trim(),
+              whatsapp: (dados.get("telefone") || "").trim(),
+              email: (dados.get("email") || "").trim(),
+              interesse: dados.get("interesse") || "",
+              finalidade: dados.get("finalidade") || "",
+              visita: dados.get("visita") || "",
+              origem: dados.get("origem") || "",
+              consentimentoLGPD: dados.get("termos") === "on",
+              enviadoEm: new Date().toISOString(),
+              _gotcha: dados.get("_gotcha") || "",
+            };
 
             mostrarStatus("Enviando solicitação...", "info");
             var enviar = form.querySelector('button[type="submit"]');
             if (enviar) enviar.disabled = true;
             var redirecionando = false;
 
-            fetch(form.action, {
+            fetch("enviar-lead.php", {
               method: "POST",
-              body: new FormData(form),
-              headers: { Accept: "application/json" },
+              body: JSON.stringify(corpo),
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
             })
               .then(function (r) {
                 if (!r.ok) throw new Error("falha");
+                return r.json();
+              })
+              .then(function (resposta) {
+                if (!resposta || resposta.ok !== true) throw new Error("falha");
                 form.reset();
                 // form.reset() só reverte o valor dos campos — a etapa visível
                 // (controlada por `hidden` em divs, não em controles de

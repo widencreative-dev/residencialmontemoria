@@ -6,3 +6,7 @@
 
 # Impeccable cache
 .impeccable/
+
+# Credenciais e leads que falharam no envio (ficam só no servidor)
+config.php
+leads-falhos.log
