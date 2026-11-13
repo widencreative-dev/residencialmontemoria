@@ -2799,11 +2799,10 @@ h6 {
     font-size: 0.625rem;
   }
 
-  /* Dica de rolar à esquerda, alinhada ao texto: no centro ela caía no
-     nome/CRECI e no blazer da Gilmara. */
-  .hero-rolar {
-    left: 0.5rem;
-    translate: none;
+  /* Dica de rolar só com a seta, centralizada: com o texto ela caía no
+     nome/CRECI e no blazer da Gilmara. O texto segue no aria-label. */
+  .hero-rolar__texto {
+    display: none;
   }
 }
 
