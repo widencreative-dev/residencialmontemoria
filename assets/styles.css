@@ -2738,49 +2738,69 @@ h6 {
   }
 }
 
-/* Celular: título, subtítulo e botão centralizados sobre o vídeo, sem a
-   foto da Gilmara (as regras de .hero-gilmara abaixo ficam caso a foto
-   volte). */
+/* Celular: texto compacto no alto, alinhado à esquerda, e a Gilmara no
+   fluxo embaixo, encostada à direita, com as mãos apontando pro texto. Ela
+   sobe 2rem por trás do botão (o z-index do .hero-conteudo fica por cima)
+   pra crescer sem apertar o texto. O recorte termina no quadril, rente ao
+   pé do hero, então não precisa de esmaecimento. */
 @media (max-width: 639px) {
-  .hero-foto .hero-gilmara {
-    display: none !important;
-  }
-
   .hero-foto .hero-conteudo {
     flex: 1 1 auto;
     justify-content: center;
-    padding-top: 5rem;
-    padding-bottom: 5.5rem;
+    padding-top: 5.5rem;
+    padding-bottom: 0;
   }
 
   .hero-foto .hero-texto {
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .hero-foto .hero-headline {
-    align-items: center;
+    align-items: flex-start;
   }
-}
 
-@media (max-width: 639px) {
+  .hero-foto .hero-subtitulo {
+    margin-top: 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .hero-foto .hero-conteudo .mt-9 {
+    margin-top: 1.5rem;
+  }
+
   .hero-foto .hero-gilmara {
     position: relative;
     order: 2;
     right: auto;
     bottom: auto;
     display: flex;
-    flex: 1 1 0;
+    flex: none;
     justify-content: flex-end;
     align-items: flex-end;
-    height: auto;
-    min-height: 16rem;
-    margin-right: -0.5rem;
+    /* Proporção do iPhone SE (375x667, ~19rem): em telas mais altas ela
+       para em 24rem e o texto se centraliza na sobra acima. */
+    height: clamp(15rem, 100svh - 23rem, 24rem);
+    margin-top: -2rem;
+    margin-right: -2.75rem;
   }
 
   .hero-foto .hero-gilmara img {
     height: 100%;
     max-width: none;
+  }
+
+  /* Nome e CRECI logo abaixo das mãos, no vão à esquerda do corpo. */
+  .hero-foto .hero-gilmara__nome {
+    bottom: 24%;
+    right: 63%;
+    font-size: 0.625rem;
+  }
+
+  /* O pé do hero agora é a Gilmara; a dica de rolar caía em cima dela. */
+  .hero-rolar {
+    display: none;
   }
 }
 
@@ -3484,13 +3504,6 @@ summary,
     max-width: 100%;
     white-space: normal;
     line-height: 1.3;
-  }
-
-  /* Hero em telas baixas (iPhone SE, Android 360x640): o recorte da
-     Gilmara tinha 16rem de altura mínima e estourava o palco em ~15px,
-     cortando o pé do nome/CRECI. 14rem cabem nos 640px com o texto acima. */
-  .hero-foto .hero-gilmara {
-    min-height: 14rem;
   }
 
   /* O desfoque de 2px sobre o vídeo é um filtro aplicado a cada quadro, e
