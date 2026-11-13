@@ -3238,11 +3238,18 @@ h6 {
   object-fit: cover;
 }
 
-/* No celular o texto ocupa o cartão inteiro, então o véu é uniforme. */
+/* No celular a marca fica no alto do cartão e o texto embaixo: o véu é
+   mais aberto em cima, pra foto aparecer atrás do "2", e fecha antes do
+   título. */
 .lancamento__overlay {
   position: absolute;
   inset: 0;
-  background: rgb(3 63 71 / 0.86);
+  background: linear-gradient(
+    180deg,
+    rgb(3 63 71 / 0.5) 0%,
+    rgb(3 63 71 / 0.86) 38%,
+    rgb(3 63 71 / 0.9) 100%
+  );
 }
 
 @media (min-width: 900px) {
@@ -3278,40 +3285,51 @@ h6 {
   z-index: 1;
 }
 
+/* Celular: a marca vem antes do texto (order), menor. */
 .lancamento__marca {
-  display: none;
+  position: relative;
+  z-index: 1;
+  order: -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+}
+
+.lancamento__nome {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-paper);
+  text-shadow: 0 2px 12px rgb(0 0 0 / 0.45);
+}
+
+.lancamento__numero {
+  margin-top: -0.25rem;
+  font-family: var(--font-display);
+  font-size: 10rem;
+  font-weight: 600;
+  line-height: 0.9;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-paper);
+  filter: drop-shadow(0 4px 18px rgb(0 0 0 / 0.4));
 }
 
 @media (min-width: 900px) {
   .lancamento__marca {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    order: 0;
     padding-right: 1rem;
-    user-select: none;
   }
 
   .lancamento__nome {
-    font-family: var(--font-display);
     font-size: 1.125rem;
-    font-weight: 600;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--color-paper);
-    text-shadow: 0 2px 12px rgb(0 0 0 / 0.45);
   }
 
   .lancamento__numero {
     margin-top: -0.5rem;
-    font-family: var(--font-display);
     font-size: clamp(9rem, 16vw, 14rem);
-    font-weight: 600;
-    line-height: 0.9;
-    color: transparent;
-    -webkit-text-stroke: 2px var(--color-paper);
-    filter: drop-shadow(0 4px 18px rgb(0 0 0 / 0.4));
   }
 }
 
